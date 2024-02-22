@@ -1,0 +1,24 @@
+
+.left-nav-bar {
+    width: 200px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+  }
+  
+  .left-nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .left-nav-bar li {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+  }
+  
+  .left-nav-bar li:hover,
+  .left-nav-bar li.selected {
+    background-color: #555;
+  }
+  
