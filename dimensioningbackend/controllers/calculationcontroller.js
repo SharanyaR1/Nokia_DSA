@@ -39,6 +39,7 @@ const vCPUDictionary = {
     'Lawful Interception': 1
 };
 
+
 const ramDictionary = {
     'Ausf_ueAuth': 8,
     'Ausf_niddau': 4,
@@ -59,7 +60,9 @@ const ramDictionary = {
     'Lawful Interception': 4
 };
 
+
 // Hashmap to store dependencies for each service
+
 const dependencyMap = {
     'Ausf_ueAuth': ['HTTPLB'],
     'Ausf_niddau': ['HTTPLB'],
