@@ -27,6 +27,45 @@ const tpsMap = {
     'Reg_trigger': 12000,
     'Lawful Interception': 5000
 };
+const vCPUDictionary = {
+    'Ausf_ueAuth': 2,
+    'Ausf_niddau': 1,
+    'Udm_uecm': 2,
+    'Udm_ueauth': 2,
+    'Udm_sidf': 1,
+    'Udm_sdm': 2,
+    'EIR_deviceCheck': 2,
+    'Hss_ims': 2,
+    'HSS_lte': 2,
+    'Hss_auth': 1,
+    'Hlr_callp': 2,
+    'Hlr_auth': 1,
+    'HTTPLB': 4,
+    'DiameterLB': 4,
+    'SS7LB': 4,
+    'Reg_trigger': 1,
+    'Lawful Interception': 1
+};
+
+const ramDictionary = {
+    'Ausf_ueAuth': 8,
+    'Ausf_niddau': 4,
+    'Udm_uecm': 8,
+    'Udm_ueauth': 8,
+    'Udm_sidf': 4,
+    'Udm_sdm': 8,
+    'EIR_deviceCheck': 8,
+    'Hss_ims': 8,
+    'HSS_lte': 8,
+    'Hss_auth': 4,
+    'Hlr_callp': 8,
+    'Hlr_auth': 4,
+    'HTTPLB': 16,
+    'DiameterLB': 16,
+    'SS7LB': 16,
+    'Reg_trigger': 4,
+    'Lawful Interception': 4
+};
 
 // Hashmap to store dependencies for each service
 const dependencyMap = {
@@ -69,17 +108,65 @@ const calculatePods = (serviceName, tps) => {
     return podsInfo;
 };
 
-// Endpoint to calculate the number of pods for a service
-app.post('/calculate-pods', (req, res) => {
-    // Assuming the request body contains the service name and TPS
-    const { serviceName, tps } = req.body;
+app.post('/calculate-pods-multiple', (req, res) => {
+    // Assuming the request body contains a dictionary of service names and TPS values
+    const serviceData = req.body;
 
-    // Calculate the number of pods for the service and its dependencies
-    const podsRequired = calculatePods(serviceName, tps);
+    // Object to store the result for each service
+    const podsInfo = {};
 
-    // Respond with the calculated number of pods
-    res.json(podsRequired);
+    // Loop through each service in the dictionary
+    for (const serviceName in serviceData) {
+        if (serviceData.hasOwnProperty(serviceName)) {
+            // Get the TPS for the current service
+            const tps = serviceData[serviceName];
+
+            // Calculate the number of pods for the current service and its dependencies
+            const podsRequired = calculatePods(serviceName, tps);
+
+            // Store the result for the current service
+            podsInfo[serviceName] = podsRequired;
+        }
+    }
+
+    // Calculate the sum of pods required for each service and its dependencies
+    for (const serviceName in podsInfo) {
+        if (podsInfo.hasOwnProperty(serviceName)) {
+            let count = 0;
+            let vcpu = 0;
+            let ram = 0;
+
+            // Add the pods required for the current service
+            count += podsInfo[serviceName][serviceName];
+
+            // Add the pods required for each dependency of the current service
+            dependencyMap[serviceName].forEach(dependentService => {
+                count += podsInfo[serviceName][dependentService];
+            });
+
+
+                    // Calculate vCPU and RAM for the current service
+            vcpu += podsInfo[serviceName][serviceName] * vCPUDictionary[serviceName];
+            ram += podsInfo[serviceName][serviceName] * ramDictionary[serviceName];
+
+            // Add the total vCPU and RAM for dependent services
+            dependencyMap[serviceName].forEach(dependentService => {
+                vcpu += podsInfo[serviceName][dependentService] * vCPUDictionary[dependentService];
+                ram += podsInfo[serviceName][dependentService] * ramDictionary[dependentService];
+            });
+
+            // Add the total count, vCPU, and RAM to the podsInfo object
+            podsInfo[serviceName].count = count;
+            podsInfo[serviceName].vcpu = vcpu;
+            podsInfo[serviceName].ram = ram;
+        }
+    }
+
+    // Respond with the calculated number of pods for all services
+    res.json(podsInfo);
 });
+
+
 
 // Start the server
 app.listen(port, () => {
