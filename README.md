@@ -10,3 +10,18 @@ Install dependencies using npm:
 To start the Dimensioning Backend in development mode, execute the following command:
 
 `npm run dev`
+
+# To run Frontend
+Navigate to the project directory:
+
+`cd frontend`
+
+Install dependencies using npm:
+
+`npm install`
+
+To start the Frontend:
+
+`npm run start`
+
+
