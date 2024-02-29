@@ -9,10 +9,12 @@ import LeftMenu from './components/LeftMenu';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import NextPage from './pages/NextPage';
+import ServicesSelection from './pages/ServicesSelection';
 import CustomBundles from './pages/CustomBundles';
 import DimensioningIP from './pages/DimensioningIP';
 import DimensioningOutput from './pages/DimensioningOutput';
+import Project from './pages/Project';
+
 import './App.css';
 
 const App = () => {
@@ -20,7 +22,8 @@ const App = () => {
     { title: 'Home', path: '/' },
     { title: 'About', path: '/about' },
     { title: 'Contact', path: '/contact' },
-    { title: 'ServicesSelection', path: '/next' },
+    { title:'Project', path:'/Project'},
+    { title: 'ServicesSelection', path: '/ServicesSelection' },
   ];
 
   return (
@@ -37,7 +40,8 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/next" element={<NextPage />} />
+            <Route path="/Project" element={<Project />} />            
+            <Route path="/ServicesSelection" element={<ServicesSelection/>} />
             <Route path="/custombundles" element={<CustomBundles />} />
             <Route path="/dimensioningIP" element={<DimensioningIP />} />
             <Route path="/output" element={<DimensioningOutput />} />

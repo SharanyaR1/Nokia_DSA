@@ -1,0 +1,13 @@
+.centered-form {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  margin-left: 450px;
+  margin-right: 20px
+  }
+  
+  form {
+    width: 300px; 
+  }
+  

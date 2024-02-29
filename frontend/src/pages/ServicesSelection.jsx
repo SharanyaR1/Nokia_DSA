@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NextPage = () => {
+const ServicesSelection = () => {
   const navigate = useNavigate();
 
   const [selectedOption, setSelectedOption] = useState('');
@@ -95,4 +95,4 @@ const NextPage = () => {
   );
 };
 
-export default NextPage;
+export default ServicesSelection;
