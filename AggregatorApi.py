@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,jsonify
 import os
 import yaml
 app=Flask(__name__)
@@ -26,10 +26,13 @@ def aggregate():
         # Write the updated YAML data back to the file
         with open(values_yaml_path, 'w') as file:
             yaml.dump(yaml_data, file)
-
     os.chdir(current_dir)
-    print(current_dir)
-    return "done"
+
+    os.system("helm package "+names["project_name"])
+    os.system("helm push "+names["project_name"]+"-0.1.0.tgz oci://registry-1.docker.io/dsanokia/")
+    
+    print(os.getcwd())
+    return jsonify({"Creation":"Successful"}),200
 if __name__=='__main__':
     app.run()
 
