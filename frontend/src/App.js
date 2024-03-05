@@ -14,6 +14,7 @@ import CustomBundles from './pages/CustomBundles';
 import DimensioningIP from './pages/DimensioningIP';
 import DimensioningOutput from './pages/DimensioningOutput';
 import Project from './pages/Project';
+import Production from './pages/Production';
 
 import './App.css';
 
@@ -24,6 +25,7 @@ const App = () => {
     { title: 'Contact', path: '/contact' },
     { title:'Project', path:'/Project'},
     { title: 'ServicesSelection', path: '/ServicesSelection' },
+    { title: 'Production',path:'/Production'},
   ];
 
   return (
@@ -45,6 +47,7 @@ const App = () => {
             <Route path="/custombundles" element={<CustomBundles />} />
             <Route path="/dimensioningIP" element={<DimensioningIP />} />
             <Route path="/output" element={<DimensioningOutput />} />
+            <Route path="/Production" element ={<Production/>}/>
           </Routes>
         </div>
       </div>
