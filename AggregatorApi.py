@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify
 import os
 import yaml
+import shutil
 app=Flask(__name__)
 
 
@@ -34,7 +35,7 @@ def aggregate():
     print(os.getcwd())
     return jsonify({"Creation":"Successful"}),200
 if __name__=='__main__':
-    app.run()
+    app.run(port=5001)
 
 
 
