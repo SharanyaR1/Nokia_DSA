@@ -1,5 +1,32 @@
 // Function to calculate the number of pods for a service and its dependencies
 // Hashmap to store TPS for 1 pod for each service
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+async function insertInput(collection, input) {
+    try {
+        const result = await collection.insertOne(input);
+        console.log('Document inserted:', result.insertedId);
+    } catch (error) {
+        console.error('Error inserting document into MongoDB:', error);
+    }
+}
+
+async function connectToMongoDB() {
+    try {
+            
+        const uri = process.env.MONGODB_URI;
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+        await client.connect();
+        console.log('Connected to MongoDB successfullyy');
+        return client.db('dimensioning-inputs').collection('dummy');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+        return null;
+    }
+}
+
 const tpsMap = {
     'Ausf_ueAuth': 1000,
     'Ausf_niddau': 800,
@@ -108,14 +135,18 @@ const calculatePods = (serviceName, tps) => {
     };
 };
 
-const calculatetotalpods = (req, res) => { 
+const calculatetotalpods = async (req, res) => { 
     console.log("req")
     console.log(req.body)
     const dependencytpsmap = {};
     
     // Assuming the request body contains a dictionary of service names and TPS values
     const serviceData = req.body;
+    const collection = await connectToMongoDB();
 
+    if (!collection) {
+        return res.status(500).json({ error: 'Failed to connect to MongoDB' });
+    }
     console.log("serviceData")
     console.log(serviceData)
 
@@ -184,9 +215,11 @@ for (const dependency in dependencytpsmap) {
         podsInfo[dependency] = dependencyPods;
     }
 }
-
+    await insertInput(collection, podsInfo);
     // Respond with the calculated number of pods for all services
     res.json(podsInfo);
 };
+
+
 
 module.exports = { calculatetotalpods };
