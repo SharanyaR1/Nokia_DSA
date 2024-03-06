@@ -3,14 +3,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #333;
-    color: rgb(239, 242, 245);
+    background-color: #817f7f;
+    color: rgb(6, 6, 6);
   }
   
   .left-menu {
     width: 200px;
-    background-color: #f4f3f3;
+    background-color: #333;
     padding: 5px;
+  }
+  .dark-mode .left-menu {
+    background-color: #333;
+    color: #fff; /* Adjust text color in dark mode */
   }
   
   .left-menu ul {
@@ -39,4 +43,5 @@
     background-color: rgb(6, 44, 85); 
     color: rgb(244, 245, 247); 
   }
+  
   
