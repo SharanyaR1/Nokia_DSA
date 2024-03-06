@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const cors = require('cors');
 const express = require('express');
 const calculationsroutes = require('./routes/calculations');
 const bodyParser = require('body-parser');
@@ -9,7 +10,8 @@ const port = 3000;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
-
+// Use the CORS middleware
+app.use(cors());
 
 app.use('/api/calculation', calculationsroutes)
 

@@ -109,11 +109,15 @@ const calculatePods = (serviceName, tps) => {
 };
 
 const calculatetotalpods = (req, res) => { 
-
+    console.log("req")
+    console.log(req.body)
     const dependencytpsmap = {};
     
     // Assuming the request body contains a dictionary of service names and TPS values
     const serviceData = req.body;
+
+    console.log("serviceData")
+    console.log(serviceData)
 
     // Object to store the result for each service
     const podsInfo = {};
@@ -138,9 +142,15 @@ for (const serviceName in serviceData) {
     if (serviceData.hasOwnProperty(serviceName)) {
         // Get the TPS for the current service
         const tps = serviceData[serviceName];
+ 
 
         // Get the dependencies for the current service
         const dependencies = dependencyMap[serviceName];
+        
+        
+        console.log("depencies")
+        console.log(dependencies);
+
     
         for (const dependency of dependencies) {
             console.log(dependency);
@@ -163,10 +173,7 @@ console.log(dependencytpsmap);
 for (const dependency in dependencytpsmap) {
     if (dependencytpsmap.hasOwnProperty(dependency)) {
         // Get the TPS and calculate the number of pods required for the dependency
-        const dependencyTps = dependencytpsmap[dependency]
-        const countOfPods = Math.ceil(dependencyTps / tpsMap[dependency]);
-
-       
+        const dependencyTps = dependencytpsmap[dependency]       
 
         // Calculate pods info for the dependency based on its TPS and count of pods
         const dependencyPods = calculatePods(dependency, dependencyTps);
@@ -177,8 +184,6 @@ for (const dependency in dependencytpsmap) {
         podsInfo[dependency] = dependencyPods;
     }
 }
-
-
 
     // Respond with the calculated number of pods for all services
     res.json(podsInfo);
