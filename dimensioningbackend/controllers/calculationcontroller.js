@@ -67,15 +67,15 @@ const dependencyMap = {
     'Ausf_ueAuth': ['HTTPLB'],
     'Ausf_niddau': ['HTTPLB'],
     'Udm_uecm': ['HTTPLB', 'Reg_trigger'],
-    'Udm_ueauth': ['HTTPLB'],
-    'Udm_sidf': ['Lawful Interception'],
+    'Udm_ueauth': ['HTTPLB','Udm_sidf'],
     'Udm_sdm': ['HTTPLB', 'Reg_trigger'],
+    'Udm_sidf': [],
     'EIR_deviceCheck': ['HTTPLB'],
-    'Hss_ims': ['DiameterLB', 'Reg_trigger'],
-    'HSS_lte': ['DiameterLB', 'Reg_trigger'],
-    'Hss_auth': ['Reg_trigger', 'Lawful Interception'],
+    'Hss_ims': ['DiameterLB','Hss_auth','Reg_trigger'],
+    'HSS_lte': ['DiameterLB','Hss_auth', 'Reg_trigger'],
+    'Hss_auth': [],
     'Hlr_callp': ['SS7LB', 'Reg_trigger'],
-    'Hlr_auth': ['SS7LB', 'Lawful Interception'],
+    'Hlr_auth': ['SS7LB'],
     'HTTPLB': [],
     'DiameterLB': [],
     'SS7LB': [],
@@ -83,28 +83,41 @@ const dependencyMap = {
     'Lawful Interception': []
 };
 
+
 const calculatePods = (serviceName, tps) => {
+    console.log("hi")
+    console.log(serviceName)
+    console.log(tps)
+    console.log(tpsMap[serviceName])
     // Initialize pods count for the current service
     const podsCount = Math.ceil(tps / tpsMap[serviceName]);
 
-    // Initialize an object to store pods count for service and dependencies
-    const podsInfo = { [serviceName]: podsCount };
+    console.log(podsCount);
 
-    // If the service has dependencies, set pods count for each dependency equal to main service
-    if (dependencyMap[serviceName].length > 0) {
-        
-        dependencyMap[serviceName].forEach(dependentService => {
-            // Set pods count for dependent service equal to main service
-            podsInfo[dependentService] = podsCount;
-        });
-    }
-
-    return podsInfo;
+    // Initialize vCPU and RAM for the current service
+    const vcpu = podsCount * vCPUDictionary[serviceName];
+    const ram = podsCount * ramDictionary[serviceName];
+    
+    // Return an object with pod count, vCPU, and RAM for the current service
+    return {
+        'Pod count required': podsCount,
+        'Pod CPU': vCPUDictionary[serviceName],
+        'Pod RAM': ramDictionary[serviceName],
+        'Total Pod CPU': vcpu,
+        'Total Pod RAM': ram
+    };
 };
+
 const calculatetotalpods = (req, res) => { 
+    console.log("req")
+    console.log(req.body)
+    const dependencytpsmap = {};
     
     // Assuming the request body contains a dictionary of service names and TPS values
     const serviceData = req.body;
+
+    console.log("serviceData")
+    console.log(serviceData)
 
     // Object to store the result for each service
     const podsInfo = {};
@@ -115,7 +128,7 @@ const calculatetotalpods = (req, res) => {
             // Get the TPS for the current service
             const tps = serviceData[serviceName];
 
-            // Calculate the number of pods for the current service and its dependencies
+            // Calculate the number of pods for the current service
             const podsRequired = calculatePods(serviceName, tps);
 
             // Store the result for the current service
@@ -123,41 +136,57 @@ const calculatetotalpods = (req, res) => {
         }
     }
 
-    // Calculate the sum of pods required for each service and its dependencies
-    for (const serviceName in podsInfo) {
-        if (podsInfo.hasOwnProperty(serviceName)) {
-            let count = 0;
-            let vcpu = 0;
-            let ram = 0;
 
-            // Add the pods required for the current service
-            count += podsInfo[serviceName][serviceName];
+// Loop through each service in the dictionary to handle dependencies
+for (const serviceName in serviceData) {
+    if (serviceData.hasOwnProperty(serviceName)) {
+        // Get the TPS for the current service
+        const tps = serviceData[serviceName];
+ 
 
-            // Add the pods required for each dependency of the current service
-            dependencyMap[serviceName].forEach(dependentService => {
-                count += podsInfo[serviceName][dependentService];
-            });
+        // Get the dependencies for the current service
+        const dependencies = dependencyMap[serviceName];
+        
+        
+        console.log("depencies")
+        console.log(dependencies);
 
-
-                    // Calculate vCPU and RAM for the current service
-            vcpu += podsInfo[serviceName][serviceName] * vCPUDictionary[serviceName];
-            ram += podsInfo[serviceName][serviceName] * ramDictionary[serviceName];
-
-            // Add the total vCPU and RAM for dependent services
-            dependencyMap[serviceName].forEach(dependentService => {
-                vcpu += podsInfo[serviceName][dependentService] * vCPUDictionary[dependentService];
-                ram += podsInfo[serviceName][dependentService] * ramDictionary[dependentService];
-            });
-
-            // Add the total count, vCPU, and RAM to the podsInfo object
-            podsInfo[serviceName].count = count;
-            podsInfo[serviceName].vcpu = vcpu;
-            podsInfo[serviceName].ram = ram;
+    
+        for (const dependency of dependencies) {
+            console.log(dependency);
+        
+            // Check if the dependency is not in the dependencytpsmap
+            if (!(dependency in dependencytpsmap)) {
+                console.log(dependencytpsmap);
+                dependencytpsmap[dependency] = parseInt(tps);
+            } else {
+                dependencytpsmap[dependency] += parseInt(tps);
+            }
         }
+        
     }
+}
+
+console.log(dependencytpsmap);
+
+// Loop through the dependencytpsmap to calculate pods info for each dependency
+for (const dependency in dependencytpsmap) {
+    if (dependencytpsmap.hasOwnProperty(dependency)) {
+        // Get the TPS and calculate the number of pods required for the dependency
+        const dependencyTps = dependencytpsmap[dependency]       
+
+        // Calculate pods info for the dependency based on its TPS and count of pods
+        const dependencyPods = calculatePods(dependency, dependencyTps);
+        
+        console.log(dependencyPods);
+      
+        // Store the dependency pods info
+        podsInfo[dependency] = dependencyPods;
+    }
+}
 
     // Respond with the calculated number of pods for all services
     res.json(podsInfo);
-}
+};
 
 module.exports = { calculatetotalpods };
