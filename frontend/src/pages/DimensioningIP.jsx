@@ -27,7 +27,7 @@ const DimensioningIP = () => {
     const data = inputs;
     
   console.log(data)
- fetch('http://localhost:3000/api/calculation', {
+ fetch('http://localhost:5000/api/calculation', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
