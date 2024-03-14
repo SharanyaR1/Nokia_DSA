@@ -15,7 +15,6 @@ async function connectToMongoDB() {
         return null;
     }
 }
-
 const data = async (req, res) => {
     const collection = await connectToMongoDB();
 
@@ -23,11 +22,19 @@ const data = async (req, res) => {
         return res.status(500).json({ error: 'Failed to connect to MongoDB' });
     }
 
-    //store the data from db and send response to frontend 
 
+    try {
+        // Fetch the first document from the collection
+        //Return 
+        const document = await collection.findOne();
+
+        // Send the document as a response
+        res.status(200).json(document);
+    } catch (error) {
+        console.error('Error fetching data from MongoDB:', error);
+        res.status(500).json({ error: 'Failed to fetch data from MongoDB' });
+    }
 }
-
- 
 
 
 module.exports = {
