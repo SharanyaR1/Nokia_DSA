@@ -6,7 +6,7 @@ const calculateddataroutes = require('./routes/calculateddataroutes');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 6000;
+const port = 4000;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());

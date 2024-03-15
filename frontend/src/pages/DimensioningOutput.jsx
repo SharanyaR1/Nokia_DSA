@@ -1,71 +1,64 @@
-import React from 'react'
-
+import React, { useState, useEffect } from 'react';
 
 const DimensioningOutput = () => {
+  const [backendResponse, setBackendResponse] = useState(null);
+
+  useEffect(() => {
+    // Simulate sending a request to the backend
+    const fetchData = async () => {
+        try {
+          console.log("Inside")
+          const response = await fetch('http://localhost:4000/api/calculateddata');
+          console.log("SUp")
+          // Check if the response is not OK (status code 200)
+          if (!response.ok) {
+            console.log("Hey");
+            throw new Error('Failed to fetch data');
+          }
+          const data = await response.json();
+          setBackendResponse(data);
+        } catch (error) {
+            console.log("Heyy");
+          console.error('Error fetching data:', error);
+          // Optionally, handle errors here
+        }
+      };
+      
+    fetchData(); // Call the fetchData function when the component mounts
+  }, []);
+
   return (
-    <div> <h3>Dimensioning Output</h3><table>
-    <br>
-    </br>
-    <thead>
-        <tr>
-            <th>Service</th>
-            <th>Version</th>
-            <th>Count</th>
-            <th>VCPU</th>
-            <th>RAM</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Service 1</td>
-            <td>24.0</td>
-            <td>12</td>
-            <td>48</td>
-            <td>120 GB</td>
-        </tr>
-        <tr>
-            <td>Service 2</td>
-            <td>24.0</td>
-            <td>10</td>
-            <td>40</td>
-            <td>80 GB</td>
-        </tr>
-        <tr>
-            <td>Service 3</td>
-            <td>24.0</td>
-            <td>2</td>
-            <td>12</td>
-            <td>16 GB</td>
-        </tr>
-        <tr>
-            <td>Service 4</td>
-            <td>23.8</td>
-            <td>8</td>
-            <td>32</td>
-            <td>64 GB</td>
-        </tr>
-        <tr>
-            <td>Service 5</td>
-            <td>24.0</td>
-            <td>8</td>
-            <td>32</td>
-            <td>32 GB</td>
-        </tr>
-        <tr>
-            <td>Service 6</td>
-            <td>24.0</td>
-            <td>2</td>
-            <td>8</td>
-            <td>32 GB</td>
-        </tr>
-    </tbody>
-</table>
-<br>
-</br>
-<button>Dimensioning SIgnoff</button>
+    <div>
+      <h3>Dimensioning Output</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Bundle</th>
+            <th>Pod count required</th>
+            <th>Pod CPU</th>
+            <th>Pod RAM</th>
+            <th>Total Pod CPU</th>
+            <th>Total Pod RAM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {backendResponse &&
+            Object.keys(backendResponse).map((bundle) => (
+              <tr key={bundle}>
+                <td>{bundle}</td>
+                <td>{backendResponse[bundle]['Pod count required']}</td>
+                <td>{backendResponse[bundle]['Pod CPU']}</td>
+                <td>{backendResponse[bundle]['Pod RAM']}</td>
+                <td>{backendResponse[bundle]['Total Pod CPU']}</td>
+                <td>{backendResponse[bundle]['Total Pod RAM']}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      <br />
+      <button>Dimensioning Signoff</button>
+    </div>
+  );
+};
 
-</div>
-  )
-}
-
-export default DimensioningOutput
+export default DimensioningOutput;
