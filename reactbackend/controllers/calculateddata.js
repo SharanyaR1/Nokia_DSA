@@ -25,10 +25,14 @@ const data = async (req, res) => {
     }
 
     try {
+        const totalDocuments = await collection.countDocuments();
+
+// Fetch all documents except the first and last ones
         const latestDocument = await collection.find({}, { projection: { _id: 0 } })
-                                                .limit(1)
-                                                .sort({ $natural: -1 })
-                                                .toArray();
+                                           .skip(1) // Skip the first document
+                                           .limit(totalDocuments - 2) // Limit to exclude the last document
+                                           .toArray();
+
 
         // Send the latest document as a response
         res.status(200).json(latestDocument[0]); // Send the first element of the array

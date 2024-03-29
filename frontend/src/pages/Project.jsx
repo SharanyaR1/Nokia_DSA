@@ -7,14 +7,46 @@ const Project = () => {
   const [projectOwner, setProjectOwner] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log('Project Details:', projectDetails);
-    console.log('Project Owner:', projectOwner);
+  const generateUniqueId = () => {
+    // Generate a random 8-character alphanumeric string
+    return Math.random().toString(36).substr(2, 8);
+  };
 
-    // Navigate to the Services Selection component
-    navigate('/ServicesSelection');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Generate a unique project ID
+    const projectId = generateUniqueId();
+
+    // Store the project ID and details in localStorage
+    localStorage.setItem('projectId', projectId);
+    localStorage.setItem('projectDetails', projectDetails);
+    localStorage.setItem('projectOwner', projectOwner);
+
+    // Send project data to the backend
+    try {
+      const response = await fetch('http://localhost:4000/api/project/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          projectId,
+          projectDetails,
+          projectOwner
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send project data');
+      }
+
+      // Navigate to the Services Selection component
+      navigate('/ServicesSelection');
+    } catch (error) {
+      console.error('Error sending project data:', error);
+      // Handle error
+    }
   };
 
   return (

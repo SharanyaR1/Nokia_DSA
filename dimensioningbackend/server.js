@@ -6,7 +6,7 @@ const calculationsroutes = require('./routes/calculations');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 5000;
+const port = 5001;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
