@@ -43,8 +43,15 @@ def aggregate():
             images_folder = os.path.join(current_dir, names["project_name"], "images")
             
             os.system(f"docker save {image_repository} > {os.path.join(images_folder, image_name)}.tar")
+
+    # Change directory to the parent directory of the project directory
     os.chdir(current_dir)
+    #parent_dir = os.path.dirname(project_path)
+    #os.chdir(parent_dir)
+
+    # Create the TAR archive within the project directory
     os.system("tar -cf "+names["project_name"]+".tar "+names["project_name"])
+    #os.system("tar -cf "+os.path.join(names["project_name"], names["project_name"] + ".tar")+" "+names["project_name"])
     os.system("helm push "+names["project_name"]+"-0.1.0.tgz oci://registry-1.docker.io/dsanokia/")
     
     print(os.getcwd())
