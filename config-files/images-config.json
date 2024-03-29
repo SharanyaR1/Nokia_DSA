@@ -1,0 +1,74 @@
+{
+    "repository": "dsanokia",
+    "url": "https://hub.docker.com/repositories/dsanokia",
+    "images": {
+      "Ausf_ueAuth": {
+        "name": "ausfueauth",
+        "tag": "latest"
+      },
+      "Ausf_niddau": {
+        "name": "ausfniddau",
+        "tag": "latest"
+      },
+      "Udm_uecm": {
+        "name": "udmuecm",
+        "tag": "latest"
+      },
+      "Udm_ueauth": {
+        "name": "udmueauth",
+        "tag": "latest"
+      },
+      "Udm_sidf": {
+        "name": "udmsidf",
+        "tag": "latest"
+      },
+      "Udm_sdm": {
+        "name": "udmsdf",
+        "tag": "latest"
+      },
+      "EIR_deviceCheck": {
+        "name": "eirdevicecheck",
+        "tag": "latest"
+      },
+      "Hss_ims": {
+        "name": "hssims",
+        "tag": "latest"
+      },
+      "HSS_lte": {
+        "name": "hsslte",
+        "tag": "latest"
+      },
+      "Hss_auth": {
+        "name": "hssauth",
+        "tag": "latest"
+      },
+      "Hlr_callp": {
+        "name": "hlrcallp",
+        "tag": "latest"
+      },
+      "Hlr_auth": {
+        "name": "hlrauth",
+        "tag": "latest"
+      },
+      "HTTPLB": {
+        "name": "httplb",
+        "tag": "latest"
+      },
+      "DiameterLB": {
+        "name": "diameterlb",
+        "tag": "latest"
+      },
+      "SS7LB": {
+        "name": "ss7lb",
+        "tag": "latest"
+      },
+      "Reg_trigger": {
+        "name": "regtrigger",
+        "tag": "latest"
+      },
+      "Lawful Interception": {
+        "name": "lawfulinterception",
+        "tag": "latest"
+      }
+    }
+  }
