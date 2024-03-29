@@ -46,8 +46,8 @@ def aggregate():
 
     # Change directory to the parent directory of the project directory
     os.chdir(current_dir)
-    os.system("tar -cf "+names["project_name"]+".tar "+names["project_name"])
-    os.system("helm push "+names["project_name"]+"-0.1.0.tgz oci://registry-1.docker.io/dsanokia/")
+    os.system("tar -cf "+data["project_name"]+".tar "+data["project_name"])
+    os.system("helm push "+data["project_name"]+"-0.1.0.tgz oci://registry-1.docker.io/dsanokia/")
     
     print(os.getcwd())
     return jsonify({"Creation":"Successful"}),200
