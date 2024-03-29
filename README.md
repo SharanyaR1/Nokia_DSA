@@ -23,5 +23,17 @@ Install dependencies using npm:
 To start the Frontend:
 
 `npm run start`
+# To run React Backend
+Navigate to the project directory:
+
+`cd reactbackend`
+
+Install dependencies using npm:
+
+`npm install`
+
+To start the Dimensioning Backend in development mode, execute the following command:
+
+`npm run dev`
 
 
