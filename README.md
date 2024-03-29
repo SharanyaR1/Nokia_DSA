@@ -114,5 +114,10 @@ Check in project terminal:
 ->helm upgrade <username> <chartname>
 ->kubectl get pods (Updated pods will be Running) 
 
+To untar command
+```bash 
+tar -xf <tar-name>.tar
+
+
 
 
