@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bcf"
+  },
+  "serviceLibrary": "Supporting Services",
+  "serviceName": "DiameterLB",
+  "vCPU": 4,
+  "RAM": 16,
+  "TPS": 10000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc2"
+  },
+  "serviceLibrary": "AUSF",
+  "serviceName": "Ausf_ueAuth",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bca"
+  },
+  "serviceLibrary": "HSS",
+  "serviceName": "Hss_lte",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1200
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc3"
+  },
+  "serviceLibrary": "AUSF",
+  "serviceName": "Ausf_niddau",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 800
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc4"
+  },
+  "serviceLibrary": "UDM",
+  "serviceName": "Udm_uecm",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1200
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bd2"
+  },
+  "serviceLibrary": "Supporting Services",
+  "serviceName": "Lawful Interception",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 5000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc7"
+  },
+  "serviceLibrary": "UDM",
+  "serviceName": "Udm_sdm",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 800
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc5"
+  },
+  "serviceLibrary": "UDM",
+  "serviceName": "Udm_ueauth",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc8"
+  },
+  "serviceLibrary": "EIR",
+  "serviceName": "EIR_deviceCheck",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 3000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc6"
+  },
+  "serviceLibrary": "UDM",
+  "serviceName": "Udm_sidf",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 2000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bc9"
+  },
+  "serviceLibrary": "HSS",
+  "serviceName": "Hss_ims",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1200
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bce"
+  },
+  "serviceLibrary": "Supporting Services",
+  "serviceName": "HTTPLB",
+  "vCPU": 4,
+  "RAM": 16,
+  "TPS": 20000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bcc"
+  },
+  "serviceLibrary": "HLR",
+  "serviceName": "Hlr_callp",
+  "vCPU": 2,
+  "RAM": 8,
+  "TPS": 1200
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bd1"
+  },
+  "serviceLibrary": "Supporting Services",
+  "serviceName": "Reg_trigger",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 12000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bcd"
+  },
+  "serviceLibrary": "HLR",
+  "serviceName": "Hlr_auth",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 2000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bd0"
+  },
+  "serviceLibrary": "Supporting Services",
+  "serviceName": "SS7LB",
+  "vCPU": 4,
+  "RAM": 16,
+  "TPS": 10000
+},
+{
+  "_id": {
+    "$oid": "65dfebc4b1e4f706a4803bcb"
+  },
+  "serviceLibrary": "HSS",
+  "serviceName": "Hss_auth",
+  "vCPU": 1,
+  "RAM": 4,
+  "TPS": 2000
+}]
