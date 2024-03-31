@@ -2,30 +2,39 @@ import React, { useState, useEffect } from 'react';
 
 const DimensioningOutput = () => {
   const [backendResponse, setBackendResponse] = useState(null);
+  const [totalPodCPU, setTotalPodCPU] = useState(0);
+  const [totalPodRAM, setTotalPodRAM] = useState(0);
 
   useEffect(() => {
     // Simulate sending a request to the backend
     const fetchData = async () => {
-        try {
-          console.log("Inside")
-          const response = await fetch('http://localhost:4000/api/calculateddata');
-          console.log("SUp")
-          // Check if the response is not OK (status code 200)
-          if (!response.ok) {
-            console.log("Hey");
-            throw new Error('Failed to fetch data');
-          }
-          const data = await response.json();
-          setBackendResponse(data);
-        } catch (error) {
-            console.log("Heyy");
-          console.error('Error fetching data:', error);
-          // Optionally, handle errors here
+      try {
+        const response = await fetch('http://localhost:4000/api/calculateddata');
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
         }
-      };
-      
+        const data = await response.json();
+        setBackendResponse(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     fetchData(); // Call the fetchData function when the component mounts
   }, []);
+
+  useEffect(() => {
+    // Calculate total sum of CPU and RAM when backendResponse changes
+    if (backendResponse) {
+      let totalCPU = 0;
+      let totalRAM = 0;
+      Object.values(backendResponse).forEach(bundle => {
+        totalCPU += bundle['Total Pod CPU'];
+        totalRAM += bundle['Total Pod RAM'];
+      });
+      setTotalPodCPU(totalCPU);
+      setTotalPodRAM(totalRAM);
+    }
+  }, [backendResponse]);
 
   return (
     <div>
@@ -54,6 +63,13 @@ const DimensioningOutput = () => {
               </tr>
             ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="4">Total:</td>
+            <td>{totalPodCPU}</td>
+            <td>{totalPodRAM}</td>
+          </tr>
+        </tfoot>
       </table>
       <br />
       <button>Dimensioning Signoff</button>
