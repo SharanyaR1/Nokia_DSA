@@ -6,47 +6,27 @@ import { useNavigate } from 'react-router-dom';
 import Service from './Service';
 import DroppedServices from './DroppedServices';
 
-const servicesList = [
-  'Hss_ims', 'HSS_lte',
-  'Hss_auth', 'Lawful Interception', 'Hss_ims',
-  'Lawful Interception',
-  'Hss_auth',
-  'Ausf_niddau',
-  'Ausf_ueAuth',
-  'EIR_deviceCheck',
-  'Udm_uecm',
-  'Udm_ueauth',
-  'Udm_sidf',
-  'Udm_sdm',
-  'Hss_ims',
-  'Lawful Interception',
-  'Hss_auth',
-  'Ausf_niddau',
-  'HSS_lte',
-  'EIR_deviceCheck',
-  'Ausf_ueAuth',
-  'Udm_uecm',
-  'Udm_ueauth',
-  'Udm_sidf',
-  'Udm_sdm',
-  'Hlr_callp',
-  'Hlr_auth',
-  'Ausf_ueAuth',
-  'Lawful Interception',
-  'Udm_uecm',
-  'Ausf_niddau',
-  'Udm_ueauth',
-  'EIR_deviceCheck',
-  'Udm_sidf',
-  'Udm_sdm',
+const servicesList = [ 
+    'Udm_uecm',
+    'Udm_ueauth',
+    'Udm_sdm',
+    'Ausf_ueAuth',
+    'Ausf_niddau',
+    'EIR_deviceCheck',
+    'Hss_ims',
+    'HSS_lte',
+    'Hlr_callp',
+    'Hlr_auth',
 ];
-
-const uniqueServices = [...new Set(servicesList)];
-
-const servicesData = uniqueServices.map((serviceName, index) => ({
-  id: index + 1,
-  name: serviceName,
-}));
+  // Remove duplicates from the services list
+  const uniqueServices = [...new Set(servicesList)];
+  
+  // Convert the services to the desired format
+  const servicesData = uniqueServices.map((serviceName, index) => ({
+    id: index + 1,
+    name: serviceName,
+  }));
+  
 
 const CustomBundles = () => {
   const navigate = useNavigate();
