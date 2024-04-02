@@ -25,12 +25,13 @@ def aggregate():
     with open(os.path.join(config_dir, 'images-config.json'), 'r') as file:
         image_config = json.load(file)
     repository_url = image_config['url']
-    
+    repository=image_config['repository']
     for i in data["charts"]:
         # Pull Helm charts using the repository URL from config
-        os.system(f"helm pull oci://{repository_url}/{i} --untar")
+        imagename=image_config['images'][i]['name']
+        os.system(f"helm pull oci://{repository_url}/{imagename}chart --untar")
         
-        values_yaml_path = os.path.join(current_dir, data["project_name"], data["project_name"] + "-charts", "charts", i, 'values.yaml')
+        values_yaml_path = os.path.join(current_dir, data["project_name"], data["project_name"] + "-charts", "charts", imagename+'chart', 'values.yaml')
         
         # Check if values.yaml file exists for the chart
         if not os.path.exists(values_yaml_path):
@@ -48,7 +49,7 @@ def aggregate():
         with open(values_yaml_path, 'w') as file:
             yaml.dump(yaml_data, file)
         
-        image_repository = yaml_data.get('image', {}).get('repository', '')
+        image_repository = image_config['repository']+'/'+imagename
         
         # Pull Docker image based on the image repository path
         if image_repository:
@@ -63,10 +64,10 @@ def aggregate():
     os.chdir(current_dir)
     
     # Generate Helm package
-    os.system(f"helm package {data['project_name']}-charts")
+    os.system("tar -cf "+data["project_name"]+".tar "+data["project_name"])
     
     # Push Helm charts to the repository using the repository URL from config
-    os.system(f"helm push {data['project_name']}-0.1.0.tgz oci://{repository_url}/")
+    # os.system(f"helm push {data['project_name']}-0.1.0.tgz oci://{repository_url}/")
     
     print(os.getcwd())
     return jsonify({"Creation": "Successful"}), 200
