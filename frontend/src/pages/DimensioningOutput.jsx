@@ -13,7 +13,10 @@ const DimensioningOutput = () => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
+
         const data = await response.json();
+        console.log('Data ffetched:')
+        console.log(data);
         setBackendResponse(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -23,6 +26,8 @@ const DimensioningOutput = () => {
   }, []);
 
   useEffect(() => {
+    console.log('Backend response:');
+    console.log(backendResponse);
     // Calculate total sum of CPU and RAM when backendResponse changes
     if (backendResponse) {
       let totalCPU = 0;

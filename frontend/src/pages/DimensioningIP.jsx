@@ -150,7 +150,7 @@ const DimensioningIP = () => {
       navigate('/output')
     })
     .catch(error => {
-      console.error('Error:', error);
+      console.error('Error that has occured :', error);
     });
   };
   
