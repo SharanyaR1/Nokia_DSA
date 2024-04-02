@@ -141,7 +141,35 @@ const calculatetotalpods = async (req, res) => {
     const dependencytpsmap = {};
     
     // Assuming the request body contains a dictionary of service names and TPS values
-    const serviceData = req.body;
+  
+  // Assuming the request body contains a dictionary of service names and TPS values
+let serviceData = req.body;
+
+console.log("Actual servicedata")
+console.log(serviceData);
+//  Get the length of the serviceData
+const length = Object.keys(serviceData).length;
+
+// // Convert the hashmap into an array of key-value pairs
+const entries = Object.entries(serviceData);
+
+// // Use slice on the array to extract a portion
+const slicedEntries = entries.slice(0, length-1);
+const project = entries.slice(length-1, length);
+
+// // Convert the sliced array back to an object
+serviceData = Object.fromEntries(slicedEntries);
+const projectId = Object.fromEntries(project);
+
+console.log("project")
+console.log(projectId);
+console.log("wassup")
+console.log(serviceData);
+console.log("hi")
+console.log(serviceData);
+
+    //last element index of the array
+    //oth to last but one index for service Data
     const collection = await connectToMongoDB();
 
     if (!collection) {
@@ -200,6 +228,7 @@ for (const serviceName in serviceData) {
 
 console.log(dependencytpsmap);
 
+
 // Loop through the dependencytpsmap to calculate pods info for each dependency
 for (const dependency in dependencytpsmap) {
     if (dependencytpsmap.hasOwnProperty(dependency)) {
@@ -215,9 +244,13 @@ for (const dependency in dependencytpsmap) {
         podsInfo[dependency] = dependencyPods;
     }
 }
-    await insertInput(collection, podsInfo);
+    const combinedHashMap = { ...podsInfo, ...projectId };
+    await insertInput(collection, combinedHashMap);
     // Respond with the calculated number of pods for all services
-    res.json(podsInfo);
+   
+    console.log("combinedHashMap")
+    console.log(combinedHashMap)
+    res.json(combinedHashMap);
 };
 
 

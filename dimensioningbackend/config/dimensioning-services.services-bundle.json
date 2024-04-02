@@ -1,0 +1,185 @@
+[{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc2"
+  },
+  "bundles": "VoNR",
+  "services": "Hss_auth",
+  "optionalService": "Ausf_niddau"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdbf"
+  },
+  "bundles": "VoLTE",
+  "services": "Hss_lte"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdcb"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Ausf_ueAuth"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc4"
+  },
+  "bundles": "VoNR",
+  "services": "Udm_uecm"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd1"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Hlr_auth"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd6"
+  },
+  "bundles": "5G Only",
+  "services": "Udm_sdm"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc9"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Hss_auth",
+  "optionalService": "Ausf_niddau"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd4"
+  },
+  "bundles": "5G Only",
+  "services": "Udm_ueauth",
+  "optionalService": "EIR_deviceCheck"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdcd"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Udm_ueauth"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc3"
+  },
+  "bundles": "VoNR",
+  "services": "Ausf_ueAuth",
+  "optionalService": "EIR_deviceCheck"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdcf"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Udm_sdm"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdcc"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Udm_uecm"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd5"
+  },
+  "bundles": "5G Only",
+  "services": "Udm_sidf"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc0"
+  },
+  "bundles": "VoLTE",
+  "services": "Hss_auth"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc7"
+  },
+  "bundles": "VoNR",
+  "services": "Udm_sdm"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc1"
+  },
+  "bundles": "VoNR",
+  "services": "Hss_ims",
+  "optionalService": "Lawful Interception"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc8"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Hss_ims",
+  "optionalService": "Lawful Interception"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdce"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Udm_sidf"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd2"
+  },
+  "bundles": "5G Only",
+  "services": "Ausf_ueAuth",
+  "optionalService": "Lawful Interception"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc5"
+  },
+  "bundles": "VoNR",
+  "services": "Udm_ueauth"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdbe"
+  },
+  "bundles": "VoLTE",
+  "services": "Hss_ims",
+  "optionalService": "Lawful Interception"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdca"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Hss_lte",
+  "optionalService": "EIR_deviceCheck"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd0"
+  },
+  "bundles": "Full Network [3G/4G/5G]",
+  "services": "Hlr_callp"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdd3"
+  },
+  "bundles": "5G Only",
+  "services": "Udm_uecm",
+  "optionalService": "Ausf_niddau"
+},
+{
+  "_id": {
+    "$oid": "65dfec8e9bc1cebebdc9bdc6"
+  },
+  "bundles": "VoNR",
+  "services": "Udm_sidf"
+}]

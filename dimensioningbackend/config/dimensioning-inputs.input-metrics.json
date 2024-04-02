@@ -1,0 +1,84 @@
+[{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b8"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "Hss_auth",
+  "podCountRequired": 1,
+  "podCPU": 1,
+  "podRAM": 4,
+  "totalPodCPU": 1,
+  "totalPodRAM": 4
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b3"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "Udm_uecm",
+  "podCountRequired": 6,
+  "podCPU": 2,
+  "podRAM": 8,
+  "totalPodCPU": 12,
+  "totalPodRAM": 48
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b7"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "DiameterLB",
+  "podCountRequired": 1,
+  "podCPU": 4,
+  "podRAM": 16,
+  "totalPodCPU": 4,
+  "totalPodRAM": 16
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b4"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "Hss_ims",
+  "podCountRequired": 1,
+  "podCPU": 2,
+  "podRAM": 8,
+  "totalPodCPU": 2,
+  "totalPodRAM": 8
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b2"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "Ausf_ueAuth",
+  "podCountRequired": 35,
+  "podCPU": 2,
+  "podRAM": 8,
+  "totalPodCPU": 70,
+  "totalPodRAM": 280
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b6"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "Reg_trigger",
+  "podCountRequired": 1,
+  "podCPU": 1,
+  "podRAM": 4,
+  "totalPodCPU": 1,
+  "totalPodRAM": 4
+},
+{
+  "_id": {
+    "$oid": "65e885edb788fd041625f5b5"
+  },
+  "projectId": "5f9a1c7b0a4e6b0017a3d8a1",
+  "serviceName": "HTTPLB",
+  "podCountRequired": 3,
+  "podCPU": 4,
+  "podRAM": 16,
+  "totalPodCPU": 12,
+  "totalPodRAM": 48
+}]

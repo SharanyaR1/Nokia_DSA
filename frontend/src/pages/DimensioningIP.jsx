@@ -153,6 +153,7 @@ const DimensioningIP = () => {
       console.error('Error:', error);
     });
   };
+  
   const handlePrevious = () => {
     navigate('/ServicesSelection');
   };

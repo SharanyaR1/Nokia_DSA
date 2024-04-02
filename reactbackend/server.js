@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 
 const calculateddataroutes = require('./routes/calculateddataroutes');
+const projectroutes = require('./routes/projectroutes');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/calculateddata',calculateddataroutes )
+
+app.use('/api/project',projectroutes)
 
 // Start the server
 app.listen(port, () => {
