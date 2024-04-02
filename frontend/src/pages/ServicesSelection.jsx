@@ -21,16 +21,16 @@ const ServicesSelection = () => {
     // Set services based on the selected option
     switch (e.target.value) {
       case 'volte':
-        setServices([ 'Lawful Interception']);
+        setServices(['Lawful Interception']);
         break;
       case 'vonr':
-        setServices([ 'Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
         break;
       case 'full-network':
-        setServices([ 'Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
         break;
       case '5g':
-        setServices([ 'Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
         break;
       default:
         setServices(['Select']);
@@ -56,6 +56,14 @@ const ServicesSelection = () => {
     navigate('/custombundles');
   };
 
+  // Function to handle submitting selected services and navigating to DimensioningIP page
+  const handleSubmit = () => {
+    // Add your logic for handling submission here
+    console.log("Submit button clicked");
+    // Navigate to DimensioningIP.jsx page
+    navigate('/DimensioningIP');
+  };
+
   return (
     <>
       <div className="bundle">
@@ -73,6 +81,7 @@ const ServicesSelection = () => {
             <label htmlFor={option.id}>{option.label}</label>
           </div>
         ))}
+        <button onClick={handleSubmit}>Submit</button>
         <br />
         <p>Select Optional Services</p>
         {services.map((service, index) => (
@@ -87,8 +96,6 @@ const ServicesSelection = () => {
             <label htmlFor={`service-checkbox-${index}`}>{service}</label>
           </div>
         ))}
-        
-        <p>Custom Bundle</p>
         <button onClick={handleCustomBundle}>Custom Bundle</button>
       </div>
     </>
