@@ -18,6 +18,23 @@ def aggregate():
     os.chdir(charts_path)
     images_dir = os.path.join(current_dir, data["project_name"], "images")
     os.makedirs(images_dir, exist_ok=True)
+
+
+
+
+
+    # Mount Docker config secret into the container
+    os.environ['DOCKER_CONFIG'] = '/root/.docker'
+    os.system('mkdir -p /root/.docker && chmod 0700 /root/.docker')
+    #credlogin is the secret name
+    if os.system('kubectl get secret credlogin -o jsonpath="{.data.\.dockerconfigjson}" | base64 -l cr--decode > /root/.docker/config.json'):
+        print("success")
+    else:
+        print("Not success")
+
+
+
+
     
     # Read image repository URLs from images-config.json
     config_dir = os.path.join(current_dir, 'config-files')
