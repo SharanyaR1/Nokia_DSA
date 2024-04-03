@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ServicesSelection = () => {
@@ -7,6 +7,7 @@ const ServicesSelection = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [services, setServices] = useState(['Select']);
   const [selectedServices, setSelectedServices] = useState([]);
+  const [bundleServices, setBundleServices] = useState([]);
 
   const bundleOptions = [
     { id: 'volte', label: 'Volte' },
@@ -15,60 +16,80 @@ const ServicesSelection = () => {
     { id: '5g', label: '5G' },
   ];
 
-  // Function to handle change in the radio buttons
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
-    // Set services based on the selected option
     switch (e.target.value) {
       case 'volte':
         setServices(['Lawful Interception']);
+        setBundleServices("VoLTE")
         break;
       case 'vonr':
         setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setBundleServices('VoNR')
         break;
       case 'full-network':
         setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setBundleServices('Full Network [3G/4G/5G]')
         break;
       case '5g':
         setServices(['Lawful Interception', 'Ausf_niddau', 'EIR_deviceCheck']);
+        setBundleServices("5G Only")
         break;
       default:
         setServices(['Select']);
     }
   };
 
-  // Function to handle checkbox change
   const handleCheckboxChange = (service) => {
     if (selectedServices.includes(service)) {
-      // Remove the service if already selected
       setSelectedServices((prevServices) => prevServices.filter((s) => s !== service));
     } else {
-      // Add the service if not selected
       setSelectedServices((prevServices) => [...prevServices, service]);
     }
   };
 
-  // Function to handle custom bundle button click
   const handleCustomBundle = () => {
-    // Add your logic for handling custom bundle creation here
     console.log("Custom Bundle button clicked");
-    // Navigate to CustomBundles.jsx page with selected services
     navigate('/custombundles');
   };
 
-  // Function to handle submitting selected services and navigating to DimensioningIP page
-  const handleSubmit = () => {
-    // Add your logic for handling submission here
+  const handleSubmit = async () => {
     console.log("Submit button clicked");
-    // Navigate to DimensioningIP.jsx page
-    navigate('/DimensioningIP');
-  };
+    console.log("Service")
+    console.log(bundleServices)
+    try {
+      const response = await fetch('http://localhost:5001/api/bundleservices/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "bundles":bundleServices }), // Sending selected services in the request body
+      });
+      const responseData = await response.json(); // Parse the response body as JSON
+      console.log(responseData);
+  
+      if (!response.ok) {
+        throw new Error('Failed to submit selected services');
+      }
 
+      const inputObject = responseData
+      
+      const servicesArray = inputObject.services.split(',').map((name, id) => ({ id, name }));
+      
+  
+      // Assuming successful submission, navigate to the DimensioningIP page
+      navigate('/dimensioningIP', { state: { servicesArray } });
+
+
+    } catch (error) {
+      console.error('Error submitting selected services:', error);
+    }
+  };
+  
   return (
     <>
       <div className="bundle">
         <p>Select Bundle</p>
-        {/* Use map to generate radio buttons dynamically */}
         {bundleOptions.map((option) => (
           <div key={option.id}>
             <input
@@ -97,6 +118,7 @@ const ServicesSelection = () => {
           </div>
         ))}
         <button onClick={handleCustomBundle}>Custom Bundle</button>
+        <br />
       </div>
     </>
   );

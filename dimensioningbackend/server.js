@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 
 const calculationsroutes = require('./routes/calculations');
+const bundleservices= require('./routes/bundleservices');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api/calculation', calculationsroutes)
+app.use('/api/bundleservices', bundleservices)
 
 // Start the server
 app.listen(port, () => {

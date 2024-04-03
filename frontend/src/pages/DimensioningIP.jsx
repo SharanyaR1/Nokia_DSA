@@ -88,7 +88,11 @@ import { useNavigate } from 'react-router-dom';
 const DimensioningIP = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const droppedServices = location.state?.droppedServices || [];
+
+
+  const droppedServices = location.state?.droppedServices || location.state?.servicesArray || [];
+  console.log("Dropped")
+  console.log(droppedServices)
   const [projectId, setProjectId] = useState('');
   const [inputs, setInputs] = useState({});
   let proj={ }
