@@ -1,9 +1,5 @@
 import subprocess
 
-
-
-
-# STEP 4 DEPLOY TO TEST AND PRODUCTION
 def check_pods_status(helm_release):
     try:
         # Run kubectl get pods command for the specified Helm release

@@ -6,9 +6,6 @@ import json
 
 app = Flask(__name__)
 
-
-
-# STEP 1 CREATE BUNBLE
 @app.route("/aggregate", methods=['POST'])
 def aggregate():
     data = request.get_json()
@@ -74,32 +71,6 @@ def aggregate():
     
     print(os.getcwd())
     return jsonify({"Creation": "Successful"}), 200
-
-
-
-
-
-
-
-
-
-
-# STEP 2 PUSH TO REPOSITORY
-@app.route('/pushtorepo',methods=['POST'])
-def pushingtorepo():
-    data = request.get_json()
-    current_dir = os.getcwd()
-    config_dir = os.path.join(current_dir, 'config-files')
-    with open(os.path.join(config_dir, 'images-config.json'), 'r') as file:
-        image_config = json.load(file)
-    repository_url = image_config['url']
-    os.system(f"helm push {data['project_name']}-0.1.0.tgz oci://{repository_url}/")
-    return jsonify({'PushToRepo':'Successful'})
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run()
