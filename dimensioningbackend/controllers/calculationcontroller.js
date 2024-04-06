@@ -49,6 +49,9 @@ const tpsMap = {};
 const vCPUDictionary = {};
 const ramDictionary = {};
 
+
+
+
 // Iterate over each service object
 services.forEach(service => {
   // Extract serviceName, TPS, vCPU, and RAM
@@ -202,6 +205,8 @@ const project = entries.slice(length-1, length);
 serviceData = Object.fromEntries(slicedEntries);
 const projectId = Object.fromEntries(project);
 
+
+
 console.log("project")
 console.log(projectId);
 console.log("wassup")
@@ -237,7 +242,12 @@ console.log(serviceData);
     }
 
 
-// Loop through each service in the dictionary to handle dependencies
+//Loop through each service in the dictionary to handle dependencies
+//but the service may not have dependencies in case its an optional service so we need to check if the service has dependencies
+
+
+
+
 for (const serviceName in serviceData) {
     if (serviceData.hasOwnProperty(serviceName)) {
         // Get the TPS for the current service
@@ -251,7 +261,7 @@ for (const serviceName in serviceData) {
         console.log("depencies")
         console.log(dependencies);
 
-    
+    if (dependencies){
         for (const dependency of dependencies) {
             console.log(dependency);
         
@@ -263,6 +273,7 @@ for (const serviceName in serviceData) {
                 dependencytpsmap[dependency] += parseInt(tps);
             }
         }
+    }
         
     }
 }
@@ -271,20 +282,26 @@ console.log(dependencytpsmap);
 
 
 // Loop through the dependencytpsmap to calculate pods info for each dependency
-for (const dependency in dependencytpsmap) {
-    if (dependencytpsmap.hasOwnProperty(dependency)) {
-        // Get the TPS and calculate the number of pods required for the dependency
-        const dependencyTps = dependencytpsmap[dependency]       
+ //if dependencytpsmap is not empty then we need to loop through it and do stuff with it
+   if (dependencytpsmap){
+    for (const dependency in dependencytpsmap) {
+        if (dependencytpsmap.hasOwnProperty(dependency)) {
+            // Get the TPS and calculate the number of pods required for the dependency
+            const dependencyTps = dependencytpsmap[dependency]       
 
-        // Calculate pods info for the dependency based on its TPS and count of pods
-        const dependencyPods = calculatePods(dependency, dependencyTps);
+            // Calculate pods info for the dependency based on its TPS and count of pods
+            const dependencyPods = calculatePods(dependency, dependencyTps);
+            
+            console.log(dependencyPods);
         
-        console.log(dependencyPods);
-      
-        // Store the dependency pods info
-        podsInfo[dependency] = dependencyPods;
+            // Store the dependency pods info
+            podsInfo[dependency] = dependencyPods;
+        }
     }
-}
+   }
+
+
+
     const combinedHashMap = { ...podsInfo, ...projectId };
     await insertInput(collection, combinedHashMap);
     // Respond with the calculated number of pods for all services

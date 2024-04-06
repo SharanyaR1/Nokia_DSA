@@ -5,8 +5,13 @@ const bundleservices = (req, res) => {
     // Mock data for demonstration
     const data = require("/home/anisha7/Nokia_DSA/dimensioningbackend/config/dimensioning-services.services-bundle.json")
     console.log(data)
+    
     // Filter the data based on the provided bundle name
     const filteredServices = data.filter(item => item.bundles === bundles);
+
+    //find the dependent services for these services of a bundle
+    const dependentServices = data.filter(item => item.bundles === bundles);
+    
     
     // Extract service names from filtered services
     const serviceNames = filteredServices.map(service => service.services);

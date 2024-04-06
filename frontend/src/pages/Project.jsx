@@ -25,7 +25,7 @@ const Project = () => {
 
     // Send project data to the backend
     try {
-      const response = await fetch('http://localhost:4000/api/project/', {
+      const response = await fetch('http://localhost:4005/api/project/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
