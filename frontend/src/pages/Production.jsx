@@ -74,6 +74,7 @@ const Production = () => {
 
     //IF the action is Test
     if (action === 'Test') {
+      setLoading3(true);
       try {
         const response = await fetch('https://api.example.com/data');
         const jsonData = await response.json();
@@ -91,6 +92,7 @@ const Production = () => {
     
     //IF the action is Push to Customer Repo
     if (action === 'Push to Customer Repo') {
+      setLoading4(true);
       try {
         const response = await fetch('https://api.example.com/data');
         const jsonData = await response.json();
@@ -108,6 +110,7 @@ const Production = () => {
 
     //IF the action is Deploy in production
     if (action === 'Deploy in production') {
+      setLoading5(true);
       try {
         const response = await fetch('https://api.example.com/data');
         const jsonData = await response.json();
