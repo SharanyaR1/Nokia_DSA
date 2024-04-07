@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,send_file
 import os
 import yaml
 import json
 
 app = Flask(__name__)
 
+
+#STEP 1 CREATE BUNDLE
 @app.route("/aggregate", methods=['POST'])
 def aggregate():
     data = request.get_json()
@@ -23,14 +25,14 @@ def aggregate():
 
 
 
-    # Mount Docker config secret into the container
-    os.environ['DOCKER_CONFIG'] = '/root/.docker'
-    os.system('mkdir -p /root/.docker && chmod 0700 /root/.docker')
-    #credlogin is the secret name
-    if os.system('kubectl get secret credlogin -o jsonpath="{.data.\.dockerconfigjson}" | base64 -l cr--decode > /root/.docker/config.json'):
-        print("success")
-    else:
-        print("Not success")
+    # # Mount Docker config secret into the container
+    # os.environ['DOCKER_CONFIG'] = '/root/.docker'
+    # os.system('mkdir -p /root/.docker && chmod 0700 /root/.docker')
+    # #credlogin is the secret name
+    # if os.system('kubectl get secret credlogin -o jsonpath="{.data.\.dockerconfigjson}" | base64 -l cr--decode > /root/.docker/config.json'):
+    #     print("success")
+    # else:
+    #     print("Not success")
 
 
 
@@ -80,13 +82,37 @@ def aggregate():
     os.chdir(current_dir)
     
     # Generate Helm package
-    os.system("tar -cf "+data["project_name"]+".tar "+data["project_name"])
-    
+    os.system("tar -cf "+data["project_name"]+"-0.1.0.tar "+data["project_name"])
+    os.system("helm package "+data["project_name"]+"/"+data["project_name"]+"-charts")
     # Push Helm charts to the repository using the repository URL from config
     #os.system(f"helm push {data['project_name']}.tar oci://{repository_url}/")
     
     print(os.getcwd())
     return jsonify({"Creation": "Successful"}), 200
+
+
+
+# STEP 2 PUSH TO REPOSITORY
+@app.route('/pushtorepo',methods=['POST'])
+def pushingtorepo():
+    data = request.get_json()
+    current_dir = os.getcwd()
+    config_dir = os.path.join(current_dir, 'config-files')
+    with open(os.path.join(config_dir, 'images-config.json'), 'r') as file:
+        image_config = json.load(file)
+    repository_url = image_config['url']
+    os.system(f"helm push {data['project_name']}-charts-0.1.0.tgz oci://{repository_url}/")
+    return jsonify({'PushToRepo':'Successful'})
+
+
+
+
+@app.route('/download')
+def download():
+    # tarball name
+    path = 'boss-0.1.0.tgz'
+    return send_file(path, as_attachment=True)
+
 
 if __name__ == '__main__':
     app.run()
