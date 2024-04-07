@@ -28,7 +28,7 @@ def check_pods_status(helm_release):
 
 
 
-
+# STEP 3 TEST IN PRE PRODUCTION ENVIRONMENT
 @app.route('/deployinprod',methods=['POST'])
 def deploy():
     try:
