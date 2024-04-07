@@ -13,3 +13,8 @@ print(decoded_content)
 #kubectl create secret generic <secret_name> --from-file=.dockerconfigjson=<path_to_docker_config_file> --type=kubernetes.io/dockerconfigjson
 #Secret will be stored in /root/.docker/congif.json
 #To view the secrets.. kubectl get secrets <secret_name> -o json
+
+
+
+
+
