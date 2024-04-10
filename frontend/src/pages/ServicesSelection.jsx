@@ -139,6 +139,10 @@ const ServicesSelection = () => {
   const [services, setServices] = useState(['Select']);
   const [selectedServices, setSelectedServices] = useState([]);
   const [bundleServices, setBundleServices] = useState([]);
+  console.log("The optional services are")
+  console.log(services)
+  console.log("The newly selected optional services are")
+  console.log(selectedServices)
 
   const bundleOptions = [
     { id: 'volte', label: 'Volte' },
@@ -187,7 +191,10 @@ const ServicesSelection = () => {
   const handleSubmit = async () => {
     console.log("Submit button clicked");
     console.log("Service")
+    console.log("Bundle services before")
     console.log(bundleServices)
+
+    
     try {
       const response = await fetch('http://localhost:5005/api/bundleservices/', {
         method: 'POST',
@@ -206,6 +213,17 @@ const ServicesSelection = () => {
       const inputObject = responseData
       
       const servicesArray = inputObject.services.split(',').map((name, id) => ({ id, name }));
+
+      console.log("The services array was")
+      console.log(servicesArray)
+      
+      //combine the optional services to services array(selectedservices)
+
+
+      servicesArray.push(...selectedServices.map((name, id) => ({ id: servicesArray.length + id, name })));
+
+      console.log("The services array is")
+      console.log(servicesArray)
       
   
       // Assuming successful submission, navigate to the DimensioningIP page
@@ -247,6 +265,8 @@ const ServicesSelection = () => {
               checked={selectedServices.includes(service)}
               onChange={() => handleCheckboxChange(service)}
             />
+
+
             <label htmlFor={`service-checkbox-${index}`}>{service}</label>
           </div>
         ))}

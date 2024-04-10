@@ -8,13 +8,29 @@ const Production = () => {
   const [nearApprover, setNearApprover] = useState('');
   const [customerRepoApprover, setCustomerRepoApprover] = useState('');
   const [productionApprover, setProductionApprover] = useState('');
-  const [status, setStatus] = useState('incomplete');
+  const [Action1status, setAction1Status] = useState('incomplete');
+  const [Action2status, setAction2Status] = useState('incomplete');
+  const [Action3status, setAction3Status] = useState('incomplete');
+  const [Action4status, setAction4Status] = useState('incomplete');
+  const [Action5status, setAction5Status] = useState('incomplete');
 
-  const handleButtonClick = (action) => {
-    // Add your logic here based on the button action
+
+
+  //whatever from the response you want to store in the state, you can store it here
+  const [Action1data, setAction1] = useState(null);
+  const [Action2data, setAction2] = useState(null);
+  const [Action3data, setAction3] = useState(null);
+  const [Action4data, setAction4] = useState(null);
+  const [Action5data, setAction5] = useState(null);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
+  const [loading5, setLoading5] = useState(false);
+
+
+  const handleButtonClick = async (action) => {
     console.log(`Button "${action}" clicked`);
-    // Assuming the logic is completed and it's time to move to the next step
-    handleNext(); // Call handleNext from the stepper context
   };
 
   return (
@@ -30,10 +46,10 @@ const Production = () => {
         />
         <div className="production-status">
           <label>Status: </label>
-          {status === 'completed' ? (
-            <label>Complete</label>
+          {loading1? (
+            <label>Loading</label>
           ) : (
-            <label>Incomplete</label>
+            <label>{Action1status}</label>
           )}
         </div>
       </div>
@@ -49,14 +65,33 @@ const Production = () => {
         />
         <div className="production-status">
           <label>Status: </label>
-          {status === 'completed' ? (
-            <label>Complete</label>
+          {loading2? (
+            <label>Loading</label>
           ) : (
-            <label>Incomplete</label>
+            <label>{Action2status}</label>
           )}
         </div>
       </div>
+ 
 
+      <div className="production-section">
+        <button onClick={() => handleButtonClick('Test')}>Test</button>
+        <label>Approver: </label>
+        <input
+          className="production-input"
+          type="text"
+          value={customerRepoApprover}
+          onChange={(e) => setCustomerRepoApprover(e.target.value)}
+        />
+        <div className="production-status">
+          <label>Status: </label>
+          {loading3 ? (
+            <label>Loading</label>
+          ) : (
+            <label>{Action3status}</label>
+          )}
+        </div>
+      </div>
       <div className="production-section">
         <button onClick={() => handleButtonClick('Push to Customer Repo')}>Push to Customer Repo</button>
         <label>Approver: </label>
@@ -68,10 +103,10 @@ const Production = () => {
         />
         <div className="production-status">
           <label>Status: </label>
-          {status === 'completed' ? (
-            <label>Complete</label>
+          {loading4 ? (
+            <label>Loading</label>
           ) : (
-            <label>Incomplete</label>
+            <label>{Action4status}</label>
           )}
         </div>
       </div>
@@ -87,10 +122,10 @@ const Production = () => {
         />
         <div className="production-status">
           <label>Status: </label>
-          {status === 'completed' ? (
-            <label>Complete</label>
+          {loading5 ? (
+            <label>Loading</label>
           ) : (
-            <label>Incomplete</label>
+            <label>{Action5status}</label>
           )}
         </div>
       </div>

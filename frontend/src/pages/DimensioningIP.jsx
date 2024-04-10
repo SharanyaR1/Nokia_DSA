@@ -198,15 +198,17 @@ import { useStepContext } from "../StepContext"; // Import the context hook
 const DimensioningIP = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { handleNext, handlePrevious } = useStepContext(); // Using the context hook
+
 
   const droppedServices = location.state?.droppedServices || location.state?.servicesArray || [];
+  console.log("Dropped")
+  console.log(droppedServices)
   const [projectId, setProjectId] = useState('');
   const [inputs, setInputs] = useState({});
 
   useEffect(() => {
     // Fetch project ID when the component mounts
-    fetch('http://localhost:4000/api/project')
+    fetch('http://localhost:4005/api/project')
       .then(response => response.json())
       .then(data => {
         setProjectId(data[0]?.projectId);
@@ -223,19 +225,29 @@ const DimensioningIP = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = inputs;
+    const data = inputs
+    proj["projectId"]=projectId
+    console.log("This is the project Idddd")
+    console.log(proj)
+    let combinedHashMap = { ...data, ...proj};
+    console.log("This is the combined hash")
+    console.log(combinedHashMap)
 
-    const combinedHashMap = { ...data, projectId };
+    
+    
 
-    fetch('http://localhost:5005/api/calculation', {
+    fetch('http://localhost:5001/api/calculation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+
+
       body: JSON.stringify(combinedHashMap)
     })
     .then(response => {
       if (!response.ok) {
+
         throw new Error('Network response was not ok');
       }
       return response.json();
