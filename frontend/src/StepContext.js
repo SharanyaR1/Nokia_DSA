@@ -10,10 +10,9 @@ export const StepProvider = ({ children }) => {
 
   const handleNext = () => {
     console.log();
-    if(currentStep === 1)
-    {
+    
       setCurrentStep(prev => prev + 1);
-    }
+    
    
     
   };

@@ -196,7 +196,7 @@ const ServicesSelection = () => {
 
     
     try {
-      const response = await fetch('http://localhost:5005/api/bundleservices/', {
+      const response = await fetch('http://localhost:5004/api/bundleservices/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

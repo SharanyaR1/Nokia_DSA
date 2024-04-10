@@ -1,29 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStepContext } from "../StepContext"; // Import the context hook
+import ServicesContext from '../context/ServicesContext';
 
 const DimensioningOutput = () => {
   const [backendResponse, setBackendResponse] = useState(null);
   const [totalPodCPU, setTotalPodCPU] = useState(0);
   const [totalPodRAM, setTotalPodRAM] = useState(0);
   const { handleNext } = useStepContext(); // Using the context hook
+  const { Services, setServices } = React.useContext(ServicesContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate sending a request to the backend
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4005/api/calculateddata');
+        const response = await fetch('http://localhost:4004/api/calculateddata');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
 
         const data = await response.json();
+
+        const servicesData = Object.keys(data).reduce((acc, bundle) => {
+          acc[bundle] = data[bundle]['Pod count required'];
+          return acc;
+        }, {});
+
+        setServices(servicesData);
+
+        console.log('Services:');
+        console.log(servicesData);
+
         setBackendResponse(data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };5003
+    };
     fetchData(); // Call the fetchData function when the component mounts
   }, []);
 
@@ -46,8 +60,15 @@ const DimensioningOutput = () => {
     // Navigate to the next step
     handleNext(); // Call handleNext from the stepper context
     navigate('/nextStep'); // Navigate to the next step route
+    navigate('/Production');
   };
 
+  useEffect(()=>{
+
+    console.log("Services")
+    console.log(Services)
+  
+  },[Services])
   return (
     <div>
       <h3>Dimensioning Output</h3>

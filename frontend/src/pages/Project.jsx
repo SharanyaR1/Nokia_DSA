@@ -82,12 +82,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Project.css';
+import ProjectContext from '../context/ProjectContext';
 import { useStepContext } from "../StepContext"; // Importing the context hook
 
 const Project = () => {
   const [projectDetails, setProjectDetails] = useState('');
   const [projectOwner, setProjectOwner] = useState('');
   const { handleNext } = useStepContext(); // Using the context hook
+  const { Project, setProject } = React.useContext(ProjectContext);
   const navigate = useNavigate();
 
   const generateUniqueId = () => {
@@ -106,9 +108,16 @@ const Project = () => {
     localStorage.setItem('projectDetails', projectDetails);
     localStorage.setItem('projectOwner', projectOwner);
 
+    setProject({
+      projectId,
+      projectDetails,
+      projectOwner
+    });
+
+
     // Send project data to the backend
     try {
-      const response = await fetch('http://localhost:4005/api/project/', {
+      const response = await fetch('http://localhost:4004/api/project/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

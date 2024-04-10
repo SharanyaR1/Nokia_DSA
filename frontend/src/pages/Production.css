@@ -31,3 +31,8 @@
 .production-section button:active {
   background-color: #2c3e50; /* Dark blue when the button is clicked */
 }
+
+.status {
+  font-size: 20px; /* Increase the font size as per your requirement */
+  font-weight: bold; /* Make the font bold */
+}
