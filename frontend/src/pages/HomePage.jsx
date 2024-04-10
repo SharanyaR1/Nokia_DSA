@@ -5,7 +5,7 @@ import './HomePage.css';
 const HomePage = () => {
   return (
     <div className="home-page-container">
-    <h2>Welcome to the Project Management System</h2>
+    <h2>Dynamic Service Aggregator</h2>
       <div className="buttons-container">
         <Link to="/Project">
           <button>Create New Project</button>

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useStepContext } from "../StepContext"; // Import the context hook
 
 const DimensioningOutput = () => {
   const [backendResponse, setBackendResponse] = useState(null);
   const [totalPodCPU, setTotalPodCPU] = useState(0);
   const [totalPodRAM, setTotalPodRAM] = useState(0);
+  const { handleNext } = useStepContext(); // Using the context hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate sending a request to the backend
@@ -15,8 +19,6 @@ const DimensioningOutput = () => {
         }
 
         const data = await response.json();
-        console.log('Data ffetched:')
-        console.log(data);
         setBackendResponse(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -26,8 +28,6 @@ const DimensioningOutput = () => {
   }, []);
 
   useEffect(() => {
-    console.log('Backend response:');
-    console.log(backendResponse);
     // Calculate total sum of CPU and RAM when backendResponse changes
     if (backendResponse) {
       let totalCPU = 0;
@@ -40,6 +40,13 @@ const DimensioningOutput = () => {
       setTotalPodRAM(totalRAM);
     }
   }, [backendResponse]);
+
+  const handleDimensioningSignoff = () => {
+    // Your logic for dimensioning signoff...
+    // Navigate to the next step
+    handleNext(); // Call handleNext from the stepper context
+    navigate('/nextStep'); // Navigate to the next step route
+  };
 
   return (
     <div>
@@ -77,7 +84,7 @@ const DimensioningOutput = () => {
         </tfoot>
       </table>
       <br />
-      <button>Dimensioning Signoff</button>
+      <button onClick={handleDimensioningSignoff}>Dimensioning Signoff</button>
     </div>
   );
 };

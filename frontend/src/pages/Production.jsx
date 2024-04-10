@@ -1,9 +1,9 @@
-
-
 import React, { useState } from 'react';
+import { useStepContext } from "../StepContext"; // Import the context hook
 import './Production.css';
 
 const Production = () => {
+  const { handleNext } = useStepContext(); // Using the context hook
   const [packageApprover, setPackageApprover] = useState('');
   const [nearApprover, setNearApprover] = useState('');
   const [customerRepoApprover, setCustomerRepoApprover] = useState('');
@@ -13,6 +13,8 @@ const Production = () => {
   const handleButtonClick = (action) => {
     // Add your logic here based on the button action
     console.log(`Button "${action}" clicked`);
+    // Assuming the logic is completed and it's time to move to the next step
+    handleNext(); // Call handleNext from the stepper context
   };
 
   return (
