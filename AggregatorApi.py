@@ -62,7 +62,7 @@ def aggregate():
     
         # Update the replica number in the YAML data
         yaml_data['replicaCount'] = data["charts"][i]
-    
+        
         # Write the updated YAML data back to the file
         with open(values_yaml_path, 'w') as file:
             yaml.dump(yaml_data, file)
