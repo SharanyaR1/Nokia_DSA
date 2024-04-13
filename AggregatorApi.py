@@ -2,8 +2,39 @@ from flask import Flask, request, jsonify,send_file
 import os
 import yaml
 import json
+from logging.config import dictConfig
+
+#THIS IS FOR LOGGING IT WRITES THE LOGS TO A FILE CALLED aggregator.log
+dictConfig(
+    {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
+            }
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "default",
+            },
+            "file": {
+
+                "class": "logging.FileHandler",
+                "filename": "aggregator.log",
+                "formatter": "default",
+
+            },
+           
+        },
+        
+        "root": {"level": "DEBUG", "handlers": ["console","file"]},
+    }
+)
 
 app = Flask(__name__)
+
 
 
 #STEP 1 CREATE BUNDLE
@@ -21,7 +52,7 @@ def aggregate():
         os.chdir(charts_path)
         images_dir = os.path.join(current_dir, data["project_name"], "images")
         os.makedirs(images_dir, exist_ok=True)
-    
+        app.logger.info("Project Directory Created")
     
     
     
@@ -78,6 +109,7 @@ def aggregate():
                 image_name = os.path.basename(image_repository)
                 images_folder = os.path.join(current_dir, data["project_name"], "images")
                 os.system(f"docker save {image_repository} > {os.path.join(images_folder, image_name)}.tar")
+            app.logger.info(imagename+" chart created under helm umbrella")
     
         # Change directory to the parent directory of the project directory
         os.chdir(current_dir)
@@ -87,10 +119,11 @@ def aggregate():
         os.system("helm package "+data["project_name"]+"/"+data["project_name"]+"-charts")
         # Push Helm charts to the repository using the repository URL from config
         #os.system(f"helm push {data['project_name']}.tar oci://{repository_url}/")
-        
+        app.logger.info("Artifact Created Successfully")
         print(os.getcwd())
         return jsonify({"Creation": "Successful"}), 200
     except Exception as e:
+        app.logger.error(e)
         return jsonify({"Creation": "Failure","ErrorLog":e})
 
     
@@ -106,6 +139,7 @@ def pushingtorepo():
         image_config = json.load(file)
     repository_url = image_config['url']
     os.system(f"helm push {data['project_name']}-charts-0.1.0.tgz oci://{repository_url}/")
+    app.logger.info("Artifact Pushed to Repository Successfully")
     return jsonify({'PushToRepo':'Successful'})
 
 
