@@ -1,4 +1,4 @@
-
+//Here from the frontend we are sending the project details to the backend and storing it in the database
 
 require('dotenv').config();
 const { MongoClient } = require('mongodb');

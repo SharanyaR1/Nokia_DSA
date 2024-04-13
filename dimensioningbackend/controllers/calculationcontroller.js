@@ -1,3 +1,8 @@
+//Here we are calculating the number of pods for a service and its dependencies
+
+
+
+
 // Function to calculate the number of pods for a service and its dependencies
 // Hashmap to store TPS for 1 pod for each service
 require('dotenv').config();
@@ -29,7 +34,6 @@ async function insertInput(collection, input) {
         console.error('Error inserting document into MongoDB:', error);
     }
 }
-
 async function connectToMongoDB() {
     try {
             

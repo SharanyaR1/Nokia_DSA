@@ -1,4 +1,4 @@
-
+//Here we are returning the calculated data from the database to display on the dimensioning output page
 
 require('dotenv').config();
 const { MongoClient } = require('mongodb');

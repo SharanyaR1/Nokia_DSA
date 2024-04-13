@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStepContext } from "../StepContext"; // Import the context hook
 import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
+import { saveAs } from 'file-saver';
 
 import './Production.css';
 
@@ -35,7 +36,11 @@ const Production = () => {
   const [loading4, setLoading4] = useState(false);
   const [loading5, setLoading5] = useState(false);
 
-
+  const handledownloadButtonClick = async () => {
+    const response = await fetch('http://localhost:5000/download');
+    const blob = await response.blob();
+    saveAs(blob, 'boss-0.1.0.tgz');
+  };
 
   const handleButtonClick = async (action) => {
     console.log(`Button "${action}" clicked`);
@@ -90,7 +95,8 @@ const Production = () => {
        
         console.error('Error creating package:', error);
         setLoading1(false);
-        setAction1Status('failed');
+        setAction1Status('failed')
+        ;
       }
     }
     //IF the action is Push to NEAR
@@ -207,6 +213,32 @@ const Production = () => {
             <label className="status">{Action1status}</label>
           )}
         </div>
+       
+        <p>
+        <div>
+  {
+    Action1status === 'completed' && 
+    <button 
+      className='Download' 
+      onClick={handledownloadButtonClick} 
+      style={{
+        height: '50px',
+        width:'200px',
+        backgroundColor: '#4682B4',
+        color: 'white', 
+        border: 'none', 
+        padding: '10px 20px', 
+        borderRadius: '50px',
+        display: 'inline-block',
+        marginTop: '10px' // Adjust this value to add space between the button and the content above
+      }}
+    >
+      Download
+    </button>
+  }
+</div>
+
+        </p>
       </div>
 
       <div className="production-section">
@@ -227,8 +259,8 @@ const Production = () => {
           )}
         </div>
       </div>
- 
 
+      <div className="production-section"></div>
       <div className="production-section">
         <button onClick={() => handleButtonClick('Test')}>Test</button>
         <label>Approver: </label>
