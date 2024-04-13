@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useStepContext } from "../StepContext"; // Import the context hook
 import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
+import CreatePackagePopup from '../components/CreatePackagePopup';
 import { saveAs } from 'file-saver';
 
 import './Production.css';
@@ -236,6 +237,15 @@ const Production = () => {
       Download
     </button>
   }
+
+    {/* Conditionally render the popup when Action1status is 'completed' */}
+    {Action1status === 'completed' && (
+          <CreatePackagePopup
+            message="Package created"
+            isOpen={true}    
+       // Replace with your trigger element
+          />
+        )}
 </div>
 
         </p>
