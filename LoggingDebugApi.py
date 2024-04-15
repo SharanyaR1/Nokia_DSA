@@ -12,7 +12,8 @@ app=Flask(__name__)
 
 @app.route('/checkstatus')
 def checkstatus():
-    helm_release = 'uness'
+    data = request.get_json()
+    helm_release = data['project_name']
     try:
        # Run kubectl get pods command for the specified Helm release
        cmd = f'kubectl get pods --namespace default -l app.kubernetes.io/instance={helm_release} '
