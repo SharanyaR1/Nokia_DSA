@@ -148,7 +148,8 @@ def pushingtorepo():
 @app.route('/download')
 def download():
     # tarball name
-    path = 'boss-0.1.0.tar'
+    data = request.get_json()
+    path = data['project_name']+'-0.1.0.tar'
     return send_file(path, as_attachment=True)
 
 
