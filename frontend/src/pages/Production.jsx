@@ -4,12 +4,43 @@ import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
 import CreatePackagePopup from '../components/CreatePackagePopup';
 import { saveAs } from 'file-saver';
+import LoginDialog from '../components/LoginDialog';
 
 import './Production.css';
 
 const Production = () => {
   const {Project, setProject} = React.useContext(ProjectContext);
   const {Services, setServices} = React.useContext(ServicesContext);
+
+  const [showLogin, setShowLogin] = useState(true); // State to control login dialog visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+  // Function to handle login form submission
+  const handleLoginSubmit = async (loginData) => {
+    // Send loginData to backend for authentication
+    // Example:
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // If authentication is successful, set isLoggedIn to true
+        setIsLoggedIn(true);
+      } else {
+        // If authentication fails, display error message or handle as needed
+        alert('Authentication failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle error
+    }
+  };
+
   console.log("The project details are ")
   console.log(Project)
   const { handleNext } = useStepContext(); // Using the context hook
@@ -197,7 +228,10 @@ const Production = () => {
 
   return (
     <div className="production-container">
-      <div className="production-section">
+       {showLogin && !isLoggedIn && ( // Render login dialog if showLogin is true and user is not logged in
+        <LoginDialog onSubmit={handleLoginSubmit} />
+      )}
+      { isLoggedIn && <div className="production-section">
         <button onClick={() => handleButtonClick('Create Package')}>Create Package</button>
         <label>Approver: </label>
         <input
@@ -249,7 +283,7 @@ const Production = () => {
 </div>
 
         </p>
-      </div>
+      </div> }
 
       <div className="production-section">
         <button onClick={() => handleButtonClick('Push to NEAR')}>Push to NEAR</button>
