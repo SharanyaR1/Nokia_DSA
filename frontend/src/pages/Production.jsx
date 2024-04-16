@@ -8,6 +8,9 @@ import { saveAs } from 'file-saver';
 import './Production.css';
 
 const Production = () => {
+  //This is for the setstatus output to appear in the UI
+  const [status, setStatus] = useState('');
+
   const {Project, setProject} = React.useContext(ProjectContext);
   const {Services, setServices} = React.useContext(ServicesContext);
   console.log("The project details are ")
@@ -37,12 +40,33 @@ const Production = () => {
   const [loading4, setLoading4] = useState(false);
   const [loading5, setLoading5] = useState(false);
 
-  const handledownloadButtonClick = async () => {
-    const response = await fetch('http://localhost:5000/download');
-    const blob = await response.blob();
-    saveAs(blob, 'boss-0.1.0.tgz');
-  };
+  const checkstatus = async () => {
+    const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
+    const data = { project_name: project_name };
+    const response = await fetch('http://localhost:5002/checkstatus', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 
+
+    const jsonData = await response.json();
+
+    console.log("The response received for status is ");
+    console.log(jsonData);
+    setStatus(jsonData.result);
+};
+
+  const handledownloadButtonClick = async () => {
+    
+    const project_name= Project.projectDetails
+    const response = await fetch(`http://localhost:5000/download`);
+    const blob = await response.blob();
+    saveAs(blob, `${project_name}-0.1.0.tar`);
+
+};
   const handleButtonClick = async (action) => {
     console.log(`Button "${action}" clicked`);
     const formattedData = {
@@ -69,37 +93,50 @@ const Production = () => {
     console.log(jsonData2)
     console.log(jsonData3)
 
-     // IF the action is Create Package
-     if (action === 'Create Package') {
-      setLoading1(true);
-  
-      try {
-        const response = await fetch('http://localhost:5000/aggregate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: jsonData
-        });
-  
-        if (!response.ok) {
-          throw new Error('Failed to create package');
-        }
-  
-        const responseData = await response.json();
-        console.log("The response1 received is ", responseData);
-  
-        setAction1(responseData);
-        setLoading1(false);
-        setAction1Status('completed');
-      } catch (error) {
-       
-        console.error('Error creating package:', error);
-        setLoading1(false);
-        setAction1Status('failed')
-        ;
-      }
+// IF the action is Create Package
+if (action === 'Create Package') {
+  setLoading1(true);
+
+  try {
+    const responsePromise = fetch('http://localhost:5000/aggregate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: jsonData
+    });
+
+    
+    const response = await responsePromise;
+    const responseData = await response.json();
+    console.log("The response1 received is ", responseData);
+
+    if (!response.ok) {
+      throw new Error('Failed to create package');
     }
+
+    setAction1(responseData);
+    setLoading1(false);
+    setAction1Status('completed');
+  } catch (error) {
+    console.error('Error creating package:', error);
+    setLoading1(false);
+    setAction1Status('failed');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    
     //IF the action is Push to NEAR
     if (action == 'Push to NEAR') {
       console.log("Inside push to NEAR")
@@ -142,6 +179,9 @@ const Production = () => {
               },
               body: jsonData3
           });
+
+      
+     
           const responseData = await response.json(); // Changed variable name to responseData
           console.log("The response received is ");
           console.log(responseData); // Changed variable name to responseData
@@ -288,7 +328,33 @@ const Production = () => {
             <label  className="status">{Action3status}</label>
           )}
         </div>
+        {
+    Action3status === 'completed' && 
+    <button 
+      className='CheckStatus' 
+      onClick={checkstatus} 
+      style={{
+        height: '50px',
+        width:'200px',
+        backgroundColor: '#4682B4',
+        color: 'white', 
+        border: 'none', 
+        padding: '10px 20px', 
+        borderRadius: '50px',
+        display: 'inline-block',
+        marginTop: '10px' // Adjust this value to add space between the button and the content above
+      }}
+    >
+    Check Status
+    </button>
+  }
+
+  {status && <p>{status}</p>
+}
+
       </div>
+
+
       <div className="production-section">
         <button onClick={() => handleButtonClick('Push to Customer Repo')}>Push to Customer Repo</button>
         <label>Approver: </label>
