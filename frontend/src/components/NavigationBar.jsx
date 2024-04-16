@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.jpg';
 import './NavigationBar.css';
 import Stepper from './Stepper';
-import CustomBundles from '../pages/CustomBundles';
 
 const NavigationBar = () => {
 
