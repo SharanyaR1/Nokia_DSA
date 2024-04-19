@@ -4,8 +4,15 @@ import shutil
 import subprocess
 import json
 from logging.config import dictConfig
+import time
+import threading
+from flask_socketio import SocketIO
+from flask_cors import CORS, cross_origin
+import logging
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
 app=Flask(__name__)
-
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 #THIS IS FOR LOGGING IT WRITES THE LOGS TO A FILE CALLED deployment.log
 dictConfig(
     {
@@ -34,6 +41,15 @@ dictConfig(
         "root": {"level": "DEBUG", "handlers": ["console","file"]},
     }
 )
+def send_messages():
+    while True:
+        # Simulating continuous message sending every second
+        with open('aggregator.log') as f:
+            data=f.readlines()
+
+        lastline=data[-1]
+        socketio.emit('messageFromBackend', {'message': lastline})
+        time.sleep(1)
 
 
 def check_pods_status(helm_release):
@@ -89,22 +105,19 @@ def deploy():
         app.logger.info(e)
         return jsonify({'Result':'Deployment Failure',"LogError":e})
 
-
-
-
-    
-    
-        
-   
-    
-
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
 
 
 
 
 
 if __name__=='__main__':
-    app.run(port=5001)
+    t = threading.Thread(target=send_messages)
+    t.daemon = True
+    t.start()
+    socketio.run(app,port=5001)
 
 
 

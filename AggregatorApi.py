@@ -40,7 +40,11 @@ dictConfig(
 def send_messages():
     while True:
         # Simulating continuous message sending every second
-        socketio.emit('messageFromBackend', {'message': 'This is a message from the backend'})
+        with open('aggregator.log') as f:
+            data=f.readlines()
+
+        lastline=data[-1]
+        socketio.emit('messageFromBackend', {'message': lastline})
         time.sleep(1)
 
 
