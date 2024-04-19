@@ -2,8 +2,13 @@ from flask import Flask, request, jsonify,send_file
 import os
 import yaml
 import json
+import logging
 from logging.config import dictConfig
-
+import time
+import threading
+from flask_socketio import SocketIO
+from flask_cors import CORS, cross_origin
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
 #THIS IS FOR LOGGING IT WRITES THE LOGS TO A FILE CALLED aggregator.log
 dictConfig(
     {
@@ -32,9 +37,16 @@ dictConfig(
         "root": {"level": "DEBUG", "handlers": ["console","file"]},
     }
 )
+def send_messages():
+    while True:
+        # Simulating continuous message sending every second
+        socketio.emit('messageFromBackend', {'message': 'This is a message from the backend'})
+        time.sleep(1)
+
 
 app = Flask(__name__)
-
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 #STEP 1 CREATE BUNDLE
@@ -152,9 +164,18 @@ def download():
     path = data['project_name']+'-0.1.0.tar'
     return send_file(path, as_attachment=True)
 
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
+
+
+
 
 if __name__ == '__main__':
-    app.run()
+    t = threading.Thread(target=send_messages)
+    t.daemon = True
+    t.start()
+    socketio.run(app,port=5000)
 
 
 """

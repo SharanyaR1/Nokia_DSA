@@ -50,7 +50,7 @@ def check_pods_status(helm_release):
                 return True
             #  and len(set(result.stdout.split()))!=1
             print("Deploying..")
-        
+            app.logger.info("Deployment under process ...")
 
     except subprocess.CalledProcessError as e:
         print(f"Error checking pods status: {e}")
@@ -76,6 +76,7 @@ def deploy():
             helm_release = proj['project_name']
             if check_pods_status(helm_release):
                 print(f"All pods in Helm deployment '{helm_release}' are running.")
+                app.logger.info("Deployment of all pods is Successful. All pods in Helm deployment are running")
                 return jsonify({'Result':'Deployed Successfully'})
             else:
                 print(f"Not all pods in Helm deployment '{helm_release}' are running.")
@@ -85,7 +86,7 @@ def deploy():
             return jsonify({'Result':'Deployment Failure'})
         
     except Exception as e:
-
+        app.logger.info(e)
         return jsonify({'Result':'Deployment Failure',"LogError":e})
 
 

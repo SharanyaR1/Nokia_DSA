@@ -1,8 +1,8 @@
 {
     "dockerhub_username":"dsanokia",
     "dockerhub_password":"Nokia*12345",
-    
-    "url": "registry-1.docker.io/",
+    "repository":"dsanokia",
+    "url": "registry-1.docker.io/dsanokia",
     "images": {
       "Ausf_ueAuth": {
         "name": "ausfueauth",
