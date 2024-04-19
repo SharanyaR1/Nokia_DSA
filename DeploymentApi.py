@@ -44,7 +44,7 @@ dictConfig(
 def send_messages():
     while True:
         # Simulating continuous message sending every second
-        with open('aggregator.log') as f:
+        with open('deployment.log') as f:
             data=f.readlines()
 
         lastline=data[-1]
