@@ -131,5 +131,12 @@
     "vCPU": 4,
     "RAM": 16,
     "TPS": 10000
+  },
+  {
+    "serviceLibrary": "Lib1",
+    "serviceName": "abc",
+    "vCPU": 4,
+    "RAM": 16,
+    "TPS": 10000
   }
 ]
