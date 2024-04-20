@@ -129,7 +129,6 @@ const ServicesSelection = () => {
       </div>
 
       <div className="bundle-section">
-        <br />
         <h2>Select Optional Services</h2>
         <div className="optional-services">
           {services.map((service, index) => (
@@ -149,16 +148,11 @@ const ServicesSelection = () => {
 
       <div className="bundle-buttons">
         <div className="bundle-normal-btns">
-          <button className="submit-btn" onClick={handleSubmit}>
-            Submit
-          </button>
-          <button className="back-btn" >
-            Back
-          </button>
+          <button className="submit-btn" onClick={handleSubmit}> Submit </button>
+          <button className="back-btn" >Previous</button>
         </div>
-        <div className='divider-custom'></div>
+        <div className='divider_custom'></div>
         <button className="custom-bundle-btn" onClick={handleCustomBundle}>Custom Bundle</button>
-        <br />
       </div>
     </div>
   );
