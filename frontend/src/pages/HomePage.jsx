@@ -77,14 +77,16 @@ const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <h2>Dynamic Service Aggregator</h2>
-      <div className="buttons-container">
-        <Link to="/Project">
-          <button onClick={handleCreateNewProjectClick}>Create New Project</button>
-        </Link>
-        <Link to="/Contact">
-          <button onClick={handleManageProjectsClick}>Manage Projects</button>
-        </Link>
+      <div className="homepage-form">
+        <h2>Dynamic Service Aggregator</h2>
+        <div className="buttons-container">
+          <Link to="/Project">
+            <button onClick={handleCreateNewProjectClick}>Create New Project</button>
+          </Link>
+          <Link to="/Contact">
+            <button onClick={handleManageProjectsClick}>Manage Projects</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
