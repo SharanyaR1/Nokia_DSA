@@ -74,7 +74,7 @@ def add_service():
 
         # Push changes to the remote repository
         origin = repo.remote(name='origin')
-        origin.push(refspec='HEAD:main')  # Push the changes to the main branch
+        origin.push(refspec='HEAD:Aggregator')  # Push the changes to the main branch
         ######
 
 
@@ -88,10 +88,17 @@ def add_service():
         print('Error:', e)  # Log the error message
         return jsonify({'message': 'Error updating credentials'}), 500
 
+"""
+Json body for postman
+{
+    
+    "dockerhub_username":"dsanokia",
+    "dockerhub_password":"Nokia*12345"
+}
+"""
 
 
-
-##############################33
+##############################
 
 
 # STEP 1 CREATE BUNDLE
