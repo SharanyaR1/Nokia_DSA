@@ -256,7 +256,7 @@ const DimensioningIP = () => {
   };
 
   return (
-    <div>
+    <div className="dimensioning-ip">
       <h2></h2>
       <div>
         <form onSubmit={handleSubmit}>
@@ -273,8 +273,10 @@ const DimensioningIP = () => {
               </li>
             ))}
           </ul>
-          <button onClick={handlePrev}>Previous</button>
-          <button type="submit">Submit</button>
+          <div className="btns">
+             <button onClick={handlePrev}>Previous</button>
+             <button type="submit">Submit</button>
+          </div>
         </form>
       </div>
     </div>
