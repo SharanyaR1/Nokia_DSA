@@ -16,7 +16,7 @@ const DimensioningOutput = () => {
     // Simulate sending a request to the backend
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4004/api/calculateddata');
+        const response = await fetch('http://localhost:4007/api/calculateddata');
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

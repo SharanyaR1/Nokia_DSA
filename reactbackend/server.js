@@ -7,7 +7,7 @@ const projectroutes = require('./routes/projectroutes');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 4004;
+const port = 4007;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());

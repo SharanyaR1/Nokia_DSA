@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useStepContext } from "../StepContext"; // Importing the context hook
+import './ServicesSelection.css';
 
 const ServicesSelection = () => {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const ServicesSelection = () => {
     //this is used to post the selected services to the backend 
     
     try {
-      const response = await fetch('http://localhost:5004/api/bundleservices/', {
+      const response = await fetch('http://localhost:5007/api/bundleservices/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,42 +109,58 @@ const ServicesSelection = () => {
   };
 
   return (
-    <>
-      <div className="bundle">
+    <div className="container">
+      <div className="bundle-section">
         <p>Select Bundle</p>
-        {bundleOptions.map((option) => (
-          <div key={option.id}>
-            <input
-              type="radio"
-              id={option.id}
-              value={option.id}
-              checked={selectedOption === option.id}
-              onChange={handleOptionChange}
-            />
-            <label htmlFor={option.id}>{option.label}</label>
-          </div>
-        ))}
-        <button onClick={handleSubmit}>Submit</button>
+        <div className="bundle-options">
+          {bundleOptions.map((option) => (
+            <div key={option.id}>
+              <input
+                type="radio"
+                id={option.id}
+                value={option.id}
+                checked={selectedOption === option.id}
+                onChange={handleOptionChange}
+              />
+              <label htmlFor={option.id}>{option.label}</label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bundle-section">
         <br />
-        <p>Select Optional Services</p>
-        {services.map((service, index) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              id={`service-checkbox-${index}`}
-              value={service}
-              checked={selectedServices.includes(service)}
-              onChange={() => handleCheckboxChange(service)}
-            />
+        <h2>Select Optional Services</h2>
+        <div className="optional-services">
+          {services.map((service, index) => (
+            <div key={index}>
+              <input
+                type="checkbox"
+                id={`service-checkbox-${index}`}
+                value={service}
+                checked={selectedServices.includes(service)}
+                onChange={() => handleCheckboxChange(service)}
+              />
+              <label htmlFor={`service-checkbox-${index}`}>{service}</label>
+            </div>
+          ))}
+        </div>
+      </div>
 
-
-            <label htmlFor={`service-checkbox-${index}`}>{service}</label>
-          </div>
-        ))}
-        <button onClick={handleCustomBundle}>Custom Bundle</button>
+      <div className="bundle-buttons">
+        <div className="bundle-normal-btns">
+          <button className="submit-btn" onClick={handleSubmit}>
+            Submit
+          </button>
+          <button className="back-btn" >
+            Back
+          </button>
+        </div>
+        <div className='divider-custom'></div>
+        <button className="custom-bundle-btn" onClick={handleCustomBundle}>Custom Bundle</button>
         <br />
       </div>
-    </>
+    </div>
   );
 };
 

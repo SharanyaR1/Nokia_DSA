@@ -22,27 +22,28 @@ const Production = () => {
   const handleLoginSubmit = async (loginData) => {
     // Send loginData to backend for authentication
     // Example:
-    try {
-      const response = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData)
-      });
-      const data = await response.json();
-      if (response.ok) {
-        // If authentication is successful, set isLoggedIn to true
+    // try {
+    //   const response = await fetch('http://localhost:5000/login', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(loginData)
+    //   });
+    //   const data = await response.json();
+    //   if (response.ok) {
+    //     // If authentication is successful, set isLoggedIn to true
         setIsLoggedIn(true);
-      } else {
-        // If authentication fails, display error message or handle as needed
-        alert('Authentication failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      // Handle error
-    }
-  };
+  //     } else {
+  //       // If authentication fails, display error message or handle as needed
+  //       alert('Authentication failed. Please try again.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //     // Handle error
+  //   }
+  // };
+  }
 
   console.log("The project details are ")
   console.log(Project)
@@ -74,6 +75,8 @@ const Production = () => {
   const checkstatus = async () => {
     const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
     const data = { project_name: project_name };
+    console.log("Inside checkstatus")
+    console.log(data)
     const response = await fetch('http://localhost:5002/checkstatus', {
         method: 'POST',
         headers: {
