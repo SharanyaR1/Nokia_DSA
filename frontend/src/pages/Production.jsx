@@ -4,6 +4,7 @@ import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
 import CreatePackagePopup from '../components/CreatePackagePopup';
 import { saveAs } from 'file-saver';
+import LogsPopup from './LogsPopUp';
 import LoginDialog from '../components/LoginDialog';
 
 import './Production.css';
@@ -314,6 +315,13 @@ if (action === 'Create Package') {
       Download
     </button>
   }
+    {console.log("LOADING STATUS")}
+{console.log(loading1)}
+  {loading1===true && (
+  <LogsPopup isOpen={true}/>
+  )
+}
+
 
     {/* Conditionally render the popup when Action1status is 'completed' */}
     {Action1status === 'completed' && (
