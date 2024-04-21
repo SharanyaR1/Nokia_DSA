@@ -228,7 +228,7 @@ const DimensioningIP = () => {
 
     const combinedHashMap = { ...data, projectId };
 
-    fetch('http://localhost:5007/api/calculation', {
+    fetch('http://localhost:5008/api/calculation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

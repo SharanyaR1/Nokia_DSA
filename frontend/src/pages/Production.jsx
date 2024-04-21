@@ -5,6 +5,7 @@ import ServicesContext from '../context/ServicesContext';
 import CreatePackagePopup from '../components/CreatePackagePopup';
 import { saveAs } from 'file-saver';
 import LogsPopup from './LogsPopUp';
+import LogsPopup2 from './LogsPopUp2';
 import LoginDialog from '../components/LoginDialog';
 
 import './Production.css';
@@ -353,6 +354,10 @@ if (action === 'Create Package') {
             <label  className="status">{Action2status}</label>
           )}
         </div>
+        {loading2===true && (
+  <LogsPopup isOpen={true}/>
+  )
+}
       </div>
 
       <div className="production-section"></div>
@@ -395,6 +400,10 @@ if (action === 'Create Package') {
   }
 
   {status && <p>{status}</p>
+}
+{loading3===true && (
+  <LogsPopup2 isOpen={true}/>
+  )
 }
 
       </div>
