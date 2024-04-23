@@ -70,4 +70,5 @@
   margin-top: 45px;
   display: flex;
   flex-direction: row;
+  gap: 1vh;
 }
