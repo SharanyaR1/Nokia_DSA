@@ -122,7 +122,7 @@
     "serviceLibrary": "Shar",
     "serviceName": "abcdef",
     "vCPU": 5555,
-    "RAM": 16,
-    "TPS": 10000
+    "RAM": 5555,
+    "TPS": 5555
   }
 ]
