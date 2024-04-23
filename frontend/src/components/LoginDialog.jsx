@@ -9,9 +9,21 @@ const LoginDialog = ({ onSubmit }) => {
   const [repoName, setRepoName] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSubmit = () => {
-    // Call the onSubmit function passed from the parent component with the form data
+  const handleSubmit = async() => {
+    // Call the onSubmit function passed from the parent component with the form data 
     onSubmit({ username, password, repoName, email });
+    console.log(username);
+    console.log(password);
+    const response = await fetch(`http://localhost:5004/logindetails`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ dockerhub_username: username ,dockerhub_password:password})
+    }
+  );
+
   };
 
   return (

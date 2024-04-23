@@ -204,6 +204,8 @@ const DimensioningIP = () => {
   const droppedServices = location.state?.droppedServices || location.state?.servicesArray || [];
   const [projectId, setProjectId] = useState('');
   const [inputs, setInputs] = useState({});
+  const [selectedVersions, setSelectedVersions] = useState({});
+
 
   useEffect(() => {
     // Fetch project ID when the component mounts
@@ -222,13 +224,27 @@ const DimensioningIP = () => {
     setInputs({ ...inputs, [serviceName]: value });
   };
 
+  const handleVersionChange = (event, serviceName) => {
+    const { value } = event.target;
+    setSelectedVersions({ ...selectedVersions, [serviceName]: value });
+  };
+
+  const handleMasterVersionChange = (event) => {
+    const { value } = event.target;
+    const updatedVersions = {};
+    droppedServices.forEach(service => {
+      updatedVersions[service.name] = value;
+    });
+    setSelectedVersions(updatedVersions);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = inputs;
 
     const combinedHashMap = { ...data, projectId };
 
-    fetch('http://localhost:5008/api/calculation', {
+    fetch('http://localhost:5009/api/calculation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -262,10 +278,29 @@ const DimensioningIP = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <h3>Dimensioning Input</h3>
+          <select onChange={handleMasterVersionChange}>
+                  <option value="">Select</option>
+                  <option value="Latest">Latest</option>
+                  <option value="1.0">1.0</option>
+                  <option value="2.0">2.0</option>
+            {/* Add more options if needed */}
+          </select>
           <ul>
             {droppedServices.map((service) => (
               <li key={service.id}>
                 {service.name}{' '}
+                <select
+                  value={selectedVersions[service.name] || ''}
+                  onChange={(event) => handleVersionChange(event, service.name)}
+                >
+                  
+                  {/* Assuming versions are fetched from somewhere */}
+                  <option value="">Select</option>
+                  <option value="Latest">Latest</option>
+                  <option value="1.0">1.0</option>
+                  <option value="2.0">2.0</option>
+                  {/* Add more options if needed */}
+                </select>
                 <input
                   type="number"
                   value={inputs[service.name] || ''}

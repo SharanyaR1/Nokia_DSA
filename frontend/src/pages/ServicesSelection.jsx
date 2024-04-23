@@ -69,7 +69,7 @@ const ServicesSelection = () => {
     //this is used to post the selected services to the backend 
     
     try {
-      const response = await fetch('http://localhost:5008/api/bundleservices/', {
+      const response = await fetch('http://localhost:5009/api/bundleservices/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
