@@ -56,7 +56,8 @@
 // HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useWizard } from '../context/WizardContext'; 
+import { useWizard } from '../context/WizardContext';
+import "./HomePage.css";
 
 const HomePage = () => {
   const { handleMenuSelection } = useWizard(); 
