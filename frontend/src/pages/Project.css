@@ -1,101 +1,94 @@
-/* .centered-form {
-    display: flex;
+
+.centered-form {
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
-  margin-left: 450px;
-  margin-right: 20px
-  }
-  
-  form {
-    width: 300px; 
-  }
-   */
-   .centered-form {
-    display: flex;
-   justify-content: center;
-  align-items: center;
- height: 70vh;
-  margin-left: 450px;
-   margin-right: 20px;
-  margin-top: 0px;
-    }
-    
-    .form-container {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      width: 280px; /* Reduced width */
-      padding-right: 35px;
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .input-field {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px; /* Reduced font size */
-    }
-    
-    .submit-button {
-      margin-left: 75px;
-      margin-top: 8px;
-      width: 50%;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px; /* Reduced font size */
-      cursor: pointer;
-    }
-    
-    .submit-button:hover {
-      background-color: #0056b3;
-    }
-    
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .popup p {
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-    
-    .popup .icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-      color: #28a745; /* Green color for success */
-    }
-    
-    .popup button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    
-    .popup button:hover {
-      background-color: #0056b3;
-    }
+  height: 100vh; /* Make the height of the container 100% of the viewport */
+  width: 100vw; /* Make the width of the container 100% of the viewport */
+  margin: 0; /* Remove any margin to avoid shifting the form */
+}
+
+.form-container {
+  background-color: #f9f9f9;
+  padding: 20px; /* Increase padding for better spacing */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Adjust the max width to fit more comfortably */
+  width: 80%; /* Set the form container width to 80% for responsiveness */
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Arrange child elements vertically */
+  justify-content: center; /* Center the contents vertically */
+  align-items: center; /* Center the contents horizontally */
+  margin-top: -25vh; /* Adjust this value to move the form up or down */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Increase margin for more spacing */
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px; /* Increase padding for easier input */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+.submit-button {
+  margin-top: 20px; /* Add more spacing above the button */
+  width: 50%; /* Make the button take up the full width of the container */
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px; /* Increase font size for better readability */
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px; /* Increase padding for better spacing */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 80%; /* Set width to adjust to different screen sizes */
+  max-width: 400px; /* Set a maximum width for larger screens */
+}
+
+.popup p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.popup .icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #28a745; /* Green color for success */
+}
+
+.popup button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}
     
