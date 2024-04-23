@@ -1,6 +1,6 @@
 {
-  "dockerhub_username": "T@gmail.com",
-  "dockerhub_password": "B12nisha*",
+  "dockerhub_username": "",
+  "dockerhub_password": "",
   "repository": "dsanokia",
   "url": "registry-1.docker.io/dsanokia",
   "images": {
