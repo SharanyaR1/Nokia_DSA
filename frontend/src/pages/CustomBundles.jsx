@@ -164,6 +164,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useNavigate } from 'react-router-dom';
 import { useStepContext } from "../StepContext"; // Import the context hook
+import "./CustomBundles.css";
 
 import Service from './Service';
 import DroppedServices from './DroppedServices';
