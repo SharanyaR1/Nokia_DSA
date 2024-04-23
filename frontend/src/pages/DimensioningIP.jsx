@@ -207,7 +207,7 @@ const DimensioningIP = () => {
 
   useEffect(() => {
     // Fetch project ID when the component mounts
-    fetch('http://localhost:4004/api/project')
+    fetch('http://localhost:4007/api/project')
       .then(response => response.json())
       .then(data => {
         setProjectId(data[0]?.projectId);
@@ -228,7 +228,7 @@ const DimensioningIP = () => {
 
     const combinedHashMap = { ...data, projectId };
 
-    fetch('http://localhost:5004/api/calculation', {
+    fetch('http://localhost:5008/api/calculation', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

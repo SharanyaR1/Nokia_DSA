@@ -1,4 +1,4 @@
-.centered-form {
+/* .centered-form {
     display: flex;
   justify-content: center;
   align-items: center;
@@ -10,4 +10,92 @@
   form {
     width: 300px; 
   }
-  
+   */
+   .centered-form {
+    display: flex;
+   justify-content: center;
+  align-items: center;
+ height: 70vh;
+  margin-left: 450px;
+   margin-right: 20px;
+  margin-top: 0px;
+    }
+    
+    .form-container {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      width: 280px; /* Reduced width */
+      padding-right: 35px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px; /* Reduced font size */
+    }
+    
+    .submit-button {
+      margin-left: 75px;
+      margin-top: 8px;
+      width: 50%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px; /* Reduced font size */
+      cursor: pointer;
+    }
+    
+    .submit-button:hover {
+      background-color: #0056b3;
+    }
+    
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .popup p {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+    
+    .popup .icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #28a745; /* Green color for success */
+    }
+    
+    .popup button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .popup button:hover {
+      background-color: #0056b3;
+    }
+    

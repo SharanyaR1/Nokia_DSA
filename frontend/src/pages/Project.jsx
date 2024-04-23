@@ -117,7 +117,7 @@ const Project = () => {
 
     // Send project data to the backend
     try {
-      const response = await fetch('http://localhost:4004/api/project/', {
+      const response = await fetch('http://localhost:4007/api/project/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -146,26 +146,36 @@ const Project = () => {
 
   return (
     <div className="centered-form">
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className="form-container" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="projectDetails">
           Project Details:
+          </label>
           <input
+            id="projectDetails"
             type="text"
+            className="input-field"
             value={projectDetails}
             onChange={(e) => setProjectDetails(e.target.value)}
           />
-        </label>
-
-        <label>
+       
+        </div>
+         
+        <div className="form-group">
+        <label htmlFor="projectOwner">
           Project Owner:
+          </label>
           <input
+            id="projectOwner"
             type="text"
+            className='input-field'
             value={projectOwner}
             onChange={(e) => setProjectOwner(e.target.value)}
           />
-        </label>
+      
+        </div>
 
-        <button type="submit">Submit</button>
+        <button className="submit-button" type="submit">Submit</button>
       </form>
     </div>
   );
