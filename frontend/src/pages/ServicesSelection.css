@@ -41,6 +41,8 @@
 .bundle-normal-btns {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  gap: 1vh;
 }
 
 .bundle-buttons button {
