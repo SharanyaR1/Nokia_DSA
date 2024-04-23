@@ -180,5 +180,12 @@
     "vCPU": 4,
     "RAM": 16,
     "TPS": 10000
+  },
+  {
+    "serviceLibrary": "Lib3",
+    "serviceName": "abcdef",
+    "vCPU": 4,
+    "RAM": 16,
+    "TPS": 10000
   }
 ]
