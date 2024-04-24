@@ -138,5 +138,12 @@
     "vCPU": 5555,
     "RAM": 5555,
     "TPS": 5555
+  },
+  {
+    "serviceLibrary": "Shara",
+    "serviceName": "abcdef",
+    "vCPU": 666,
+    "RAM": 5555,
+    "TPS": 5555
   }
 ]
