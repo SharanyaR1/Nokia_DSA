@@ -117,5 +117,12 @@
     "vCPU": 1,
     "RAM": 4,
     "TPS": 2000
-  } 
+  },
+  {
+    "serviceLibrary": "Shara",
+    "serviceName": "abcdef",
+    "vCPU": 666,
+    "RAM": 999999999,
+    "TPS": 9999999
+  }
 ]
