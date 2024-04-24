@@ -124,5 +124,12 @@
     "vCPU": 666,
     "RAM": 898989,
     "TPS": 9999999
+  },
+  {
+    "serviceLibrary": "HSS",
+    "serviceName": "newService",
+    "vCPU": 666,
+    "RAM": 898989,
+    "TPS": 9999999
   }
 ]
