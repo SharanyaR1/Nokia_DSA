@@ -4,7 +4,6 @@ import yaml
 import json
 from logging.config import dictConfig
 import subprocess
-
 # THIS IS FOR LOGGING IT WRITES THE LOGS TO A FILE CALLED aggregator.log
 dictConfig(
     {
