@@ -1,14 +1,13 @@
 //Here we are calculating the number of pods for a service and its dependencies
-
-
-
-
+//Storing projectid , calculations in the database
 // Function to calculate the number of pods for a service and its dependencies
 // Hashmap to store TPS for 1 pod for each service
 require('dotenv').config();
 const data = require('../config/dimensioning-services.services-dependency.json');
 const services=require('../config/dimensioning-services.services-req.json')
 console.log(data);
+
+
 // Initialize an empty dependency map
 const dependencyMap = {};
 
@@ -41,7 +40,7 @@ async function connectToMongoDB() {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
         await client.connect();
-        console.log('Connected to MongoDB successfullyy');
+        console.log('Connected to MongoDB successfullyyy');
         return client.db('dimensioning-inputs').collection('dummy');
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
@@ -184,12 +183,12 @@ const calculatePods = (serviceName, tps) => {
 };
 
 const calculatetotalpods = async (req, res) => { 
+    console.log("Co")
     console.log("req")
     console.log(req.body)
     const dependencytpsmap = {};
     
     // Assuming the request body contains a dictionary of service names and TPS values
-  
   // Assuming the request body contains a dictionary of service names and TPS values
 let serviceData = req.body;
 
@@ -198,22 +197,24 @@ console.log(serviceData);
 //  Get the length of the serviceData
 const length = Object.keys(serviceData).length;
 
+
 // // Convert the hashmap into an array of key-value pairs
 const entries = Object.entries(serviceData);
+
+console.log("Entries")
+console.log(entries)
 
 // // Use slice on the array to extract a portion
 const slicedEntries = entries.slice(0, length-1);
 const project = entries.slice(length-1, length);
 
+console.log("The project")
+console.log(project)
 // // Convert the sliced array back to an object
 serviceData = Object.fromEntries(slicedEntries);
 const projectId = Object.fromEntries(project);
-
-
-
-console.log("project")
+console.log("projectid")
 console.log(projectId);
-console.log("wassup")
 console.log(serviceData);
 console.log("hi")
 console.log(serviceData);
@@ -305,12 +306,13 @@ console.log(dependencytpsmap);
     }
    }
 
-
-
+    console.log("rpoje")
+    console.log(projectId)
     const combinedHashMap = { ...podsInfo, ...projectId };
+    console.log(combinedHashMap)
+
     await insertInput(collection, combinedHashMap);
     // Respond with the calculated number of pods for all services
-   
     console.log("combinedHashMap")
     console.log(combinedHashMap)
     res.json(combinedHashMap);

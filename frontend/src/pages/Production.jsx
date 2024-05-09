@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useStepContext } from "../StepContext"; // Import the context hook
 import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
@@ -11,6 +11,74 @@ import LoginDialog from '../components/LoginDialog';
 import './Production.css';
 
 const Production = () => {
+
+  const { handleNext } = useStepContext(); // Using the context hook
+  const [packageApprover, setPackageApprover] = useState('');
+  const [nearApprover, setNearApprover] = useState('');
+  const [customerRepoApprover, setCustomerRepoApprover] = useState('');
+  const [productionApprover, setProductionApprover] = useState('');
+  const [Action1status, setAction1Status] = useState('incomplete');
+  const [Action2status, setAction2Status] = useState('incomplete');
+  const [Action3status, setAction3Status] = useState('incomplete');
+  const [Action4status, setAction4Status] = useState('incomplete');
+  const [Action5status, setAction5Status] = useState('incomplete');
+
+
+
+  //whatever from the response you want to store in the state, you can store it here
+  const [Action1data, setAction1] = useState(null);
+  const [Action2data, setAction2] = useState(null);
+  const [Action3data, setAction3] = useState(null);
+  const [Action4data, setAction4] = useState(null);
+  const [Action5data, setAction5] = useState(null);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
+  const [loading5, setLoading5] = useState(false);
+  const [action1Success, setAction1Success] = useState(false);
+  const [action2Success, setAction2Success] = useState(false);
+  const [action3Success, setAction3Success] = useState(false);
+  const [action4Success, setAction4Success] = useState(false);
+  const [action5Success, setAction5Success] = useState(false);
+
+    // Use useEffect to monitor the success status of each action
+    useEffect(() => {
+      // Enable Action 2 button if Action 1 is successful
+      if (Action1status === 'completed') {
+        setAction2Success(true);
+      } else {
+        setAction2Success(false);
+      }
+    }, [Action1status]);
+  
+    useEffect(() => {
+      // Enable Action 3 button if Action 2 is successful
+      if (Action2status === 'completed') {
+        setAction3Success(true);
+      } else {
+        setAction3Success(false);
+      }
+    }, [Action2status]);
+  
+    useEffect(() => {
+      // Enable Action 4 button if Action 3 is successful
+      if (Action3status === 'completed') {
+        setAction4Success(true);
+      } else {
+        setAction4Success(false);
+      }
+    }, [Action3status]);
+  
+    useEffect(() => {
+      // Enable Action 5 button if Action 4 is successful
+      if (Action4status === 'completed') {
+        setAction5Success(true);
+      } else {
+        setAction5Success(false);
+      }
+    }, [Action4status]);
+  
   //This is for the setstatus output to appear in the UI
   const [status, setStatus] = useState('');
   const [output, setOutput] = useState('');
@@ -75,30 +143,7 @@ const Production = () => {
 
   console.log("The project details are ")
   console.log(Project)
-  const { handleNext } = useStepContext(); // Using the context hook
-  const [packageApprover, setPackageApprover] = useState('');
-  const [nearApprover, setNearApprover] = useState('');
-  const [customerRepoApprover, setCustomerRepoApprover] = useState('');
-  const [productionApprover, setProductionApprover] = useState('');
-  const [Action1status, setAction1Status] = useState('incomplete');
-  const [Action2status, setAction2Status] = useState('incomplete');
-  const [Action3status, setAction3Status] = useState('incomplete');
-  const [Action4status, setAction4Status] = useState('incomplete');
-  const [Action5status, setAction5Status] = useState('incomplete');
-
-
-
-  //whatever from the response you want to store in the state, you can store it here
-  const [Action1data, setAction1] = useState(null);
-  const [Action2data, setAction2] = useState(null);
-  const [Action3data, setAction3] = useState(null);
-  const [Action4data, setAction4] = useState(null);
-  const [Action5data, setAction5] = useState(null);
-  const [loading1, setLoading1] = useState(false);
-  const [loading2, setLoading2] = useState(false);
-  const [loading3, setLoading3] = useState(false);
-  const [loading4, setLoading4] = useState(false);
-  const [loading5, setLoading5] = useState(false);
+  
 
   const checkstatus = async () => {
     const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
@@ -120,7 +165,7 @@ const Production = () => {
     console.log(jsonData);
     setStatus(jsonData.result);
     console.log("The status is ")
-    setOutput(formatPodStatus(status));
+    // setOutput(formatPodStatus(status));
 };
 
   const handledownloadButtonClick = async () => {
@@ -262,6 +307,7 @@ if (action === 'Create Package') {
           setAction3(responseData); // Changed variable name to responseData
           setLoading3(false);
           setAction3Status('completed');
+          handleNext();
       } catch (error) {
           console.error('Error fetching data:', error);
           setLoading3(false);
@@ -299,6 +345,7 @@ if (action === 'Create Package') {
         setAction5(jsonData);
         setLoading5(false);
         setAction5Status('completed');
+        handleNext();
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading5(false);
@@ -381,7 +428,7 @@ if (action === 'Create Package') {
       </div> }
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to NEAR')}>Push to NEAR</button>
+        <button onClick={() => handleButtonClick('Push to NEAR')}disabled={!action2Success}>Push to NEAR</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -409,7 +456,7 @@ if (action === 'Create Package') {
 
     <div className="production-section"></div>
 <div className="production-section">
-  <button onClick={() => handleButtonClick('Test')}>Test</button>
+  <button onClick={() => handleButtonClick('Test')}disabled={!action3Success}>Test</button>
   <label>Approver: </label>
   <input
     className="production-input"
@@ -431,7 +478,6 @@ if (action === 'Create Package') {
   </div>
   
   {
-    Action3status === 'completed' && 
     <button 
       className='CheckStatus' 
       onClick={checkstatus} 
@@ -459,10 +505,10 @@ if (action === 'Create Package') {
   )}
 
   {/*to check status of deployments in the kubernetes cluster*/}
-{output && <div><br /><p>{output}</p></div>}
+{status && <div><br /><p>{status}</p></div>}
 </div>
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to Customer Repo')}>Push to Customer Repo</button>
+        <button onClick={() => handleButtonClick('Push to Customer Repo')}disabled={!action4Success}>Push to Customer Repo</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -485,7 +531,7 @@ if (action === 'Create Package') {
       </div>
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Deploy in production')}>Deploy in production</button>
+        <button onClick={() => handleButtonClick('Deploy in production')}disabled={!action5Success}>Deploy in production</button>
         <label>Approver: </label>
         <input
           className="production-input"

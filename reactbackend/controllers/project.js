@@ -8,7 +8,7 @@ async function connectToMongoDB() {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
         await client.connect();
-        console.log('Connected to MongoDB successfullyy');
+        console.log('Connected to MongoDB successfullyyyy');
         return client.db('dimensioning-inputs').collection('project');
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);

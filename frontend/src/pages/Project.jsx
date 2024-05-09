@@ -199,6 +199,10 @@ const Project = () => {
   const { Project, setProject } = React.useContext(ProjectContext);
   const navigate = useNavigate();
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(true); // State to manage authentication modal visibility
+
   const generateUniqueId = () => {
     // Generate a random 8-character alphanumeric string
     return Math.random().toString(36).substr(2, 8);
@@ -292,52 +296,100 @@ const Project = () => {
       navigate('/ServicesSelection');
 
       // Call handleNext to proceed to the next step in the stepper
-      handleNext(1);
+      handleNext();
     } catch (error) {
       console.error('Error sending project data:', error);
       // Handle error
     }
   };
+  // Function to handle authentication
+  const handleAuthentication = () => {
+    // Hardcoded username and password for now
+    const hardcodedUsername = 'admin';
+    const hardcodedPassword = 'password';
 
+    if (username === hardcodedUsername && password === hardcodedPassword) {
+      setShowAuthModal(false); // Hide authentication modal if credentials are correct
+    } else {
+      // Clear input fields and display error
+      setUsername('');
+      setPassword('');
+      alert('Invalid username or password. Please try again.');
+    }
+  };
+
+ 
   return (
     <div className="centered-form">
-      <form className="form-container" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="projectDetails">Project Name:</label>
-          <input
-            id="projectDetails"
-            type="text"
-            className="input-field"
-            value={projectDetails}
-            onChange={(e) => {
-              setProjectDetails(e.target.value);
-              setDetailsError('');
-            }}
-          />
-          {detailsError && <p className="error-message">{detailsError}</p>}
+      {/* Authentication Modal */}
+      {showAuthModal && (
+        <div className="auth-modal">
+          <div className="auth-modal-content">
+            <h2>Authentication</h2>
+            <form onSubmit={handleAuthentication}>
+              <div className="form-group">
+                <label htmlFor="username">Username:</label>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password:</label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
+      )}
 
-        <div className="form-group">
-          <label htmlFor="projectOwner">Project Owner:</label>
-          <input
-            id="projectOwner"
-            type="text"
-            className='input-field'
-            value={projectOwner}
-            onChange={(e) => {
-              setProjectOwner(e.target.value);
-              setOwnerError('');
-            }}
-          />
-          {ownerError && <p className="error-message">{ownerError}</p>}
-        </div>
+      {/* Main Form */}
+      {!showAuthModal && (
+        <form className="form-container" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="projectDetails">Project Name:</label>
+            <input
+              id="projectDetails"
+              type="text"
+              className="input-field"
+              value={projectDetails}
+              onChange={(e) => {
+                setProjectDetails(e.target.value);
+                setDetailsError('');
+              }}
+            />
+            {detailsError && <p className="error-message">{detailsError}</p>}
+          </div>
 
-        <button className="submit-button" type="submit">Submit</button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="projectOwner">Project Owner:</label>
+            <input
+              id="projectOwner"
+              type="text"
+              className='input-field'
+              value={projectOwner}
+              onChange={(e) => {
+                setProjectOwner(e.target.value);
+                setOwnerError('');
+              }}
+            />
+            {ownerError && <p className="error-message">{ownerError}</p>}
+          </div>
+
+          <button className="submit-button" type="submit">Submit</button>
+        </form>
+      )}
     </div>
   );
 };
 
 export default Project;
-
 

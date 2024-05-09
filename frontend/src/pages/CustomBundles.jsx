@@ -159,12 +159,14 @@
 
 // export default CustomBundles;
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useNavigate } from 'react-router-dom';
 import { useStepContext } from "../StepContext"; // Import the context hook
+// import services from "../config/dimensioning-services.services-dependency.json"; // Importing the configuration file
 import "./CustomBundles.css";
+
 
 import Service from './Service';
 import DroppedServices from './DroppedServices';
@@ -175,8 +177,21 @@ const CustomBundles = () => {
   const [droppedServices, setDroppedServices] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const [services,setServices]=useState([])
 
-  const servicesList = [ 
+  useEffect(() => {
+    fetch('http://localhost:5009/api/config/custom/ ')
+      .then(response => response.json())
+      .then(data => setServices(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
+  const servicesList = services.reduce((acc, item) => {
+    return acc.concat(item.dependency.mainService);
+  }, []);
+  
+/*
+ const servicesList = [ 
     'Udm_uecm',
     'Udm_ueauth',
     'Udm_sdm',
@@ -186,8 +201,9 @@ const CustomBundles = () => {
     'Hss_ims',
     'HSS_lte',
     'Hlr_callp',
-    'Hlr_auth',
-  ];
+     'Hlr_auth',
+   ];
+   */
 
   const uniqueServices = [...new Set(servicesList)];
   const servicesData = uniqueServices.map((serviceName, index) => ({
@@ -199,6 +215,13 @@ const CustomBundles = () => {
     setDroppedServices((prevServices) => [...prevServices, service]);
   };
 
+  const handleRemove = (service) => {
+    setDroppedServices((prevServices) =>
+      prevServices.filter((s) => s.id !== service.id)
+    );
+  };
+
+
   const handleViewSummary = () => {
     navigate('/dimensioningIP', { state: { droppedServices } });
     handleNext(); // Set a specific value instead of incrementing by 1
@@ -206,6 +229,7 @@ const CustomBundles = () => {
 
   const handlePrev = () => {
     // Reset completion status when going back
+    navigate('/ServicesSelection');
     handlePrevious(); // Call handlePrevious from the stepper context
   };
 
@@ -221,10 +245,10 @@ const CustomBundles = () => {
         <div className="divider"></div>
         <div className="dropped-services-container">
           <h2>Selected Services</h2>
-          <DroppedServices droppedServices={droppedServices} />
+          <DroppedServices droppedServices={droppedServices} onRemove={handleRemove}/>
         </div>
         <div className="button-container">
-          <button onClick={handlePrev} disabled={currentStep === 1}>Previous</button>
+        <button onClick={handlePrev} disabled={droppedServices.length === 0}>Previous</button>
           <button onClick={handleViewSummary} disabled={droppedServices.length === 0}>Next</button>
         </div>
       </div>

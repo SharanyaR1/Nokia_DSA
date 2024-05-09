@@ -244,6 +244,9 @@ const DimensioningIP = () => {
 
     const combinedHashMap = { ...data, projectId };
 
+    console.log("The combined hashmap")
+    console.log(combinedHashMap)
+    
     fetch('http://localhost:5009/api/calculation', {
       method: 'POST',
       headers: {

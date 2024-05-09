@@ -26,7 +26,7 @@ const LogsPopup = ({ isOpen }) => {
     <Popup open={isOpen} modal contentStyle={{ background: 'white' }}>
       {(close) => (
         <div className="custom-popup">
-          <button className="close-btn" onClick={close}>
+          <button className="close-btn" onClick={() => { close();}}>
             X
           </button>
           <div className="popup-content">
@@ -36,6 +36,8 @@ const LogsPopup = ({ isOpen }) => {
           </div>
         </div>
       )}
+
+
     </Popup>
   );
 };

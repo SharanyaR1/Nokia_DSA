@@ -48,6 +48,7 @@
     "RAM": 8,
     "TPS": 800
   },
+
   {
     "serviceLibrary": "UDM",
     "serviceName": "Udm_ueauth",
@@ -62,6 +63,7 @@
     "RAM": 8,
     "TPS": 3000
   },
+
   {
     "serviceLibrary": "UDM",
     "serviceName": "Udm_sidf",
@@ -76,6 +78,7 @@
     "RAM": 8,
     "TPS": 1200
   },
+
   {
     "serviceLibrary": "Supporting Services",
     "serviceName": "HTTPLB",
@@ -97,6 +100,7 @@
     "RAM": 4,
     "TPS": 12000
   },
+  
   {
     "serviceLibrary": "HLR",
     "serviceName": "Hlr_auth",

@@ -20,18 +20,26 @@
   padding: 20px; /* Increase the button padding */
   width: 350px; /* Increase the button width */
   height: 60px; /* Increase the button height */
-  background-color: #3498db; /* Set the initial button color */
+  background-color:  #3498db; /* Set the initial button color to grey */
   color: white; /* Set the text color */
   border: none;
   cursor: pointer;
   font-size: large;
   /* Add 3D effect */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s;
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.production-section button:disabled {
+  background-color: #b0c4de; /* Light blue when button is disabled */
+}
+
+.production-section button.success {
+  background-color: #87CEFA; /* Lighter blue for successful actions */
 }
 
 .production-section button:active {
-  background-color: #2c3e50; /* Dark blue when the button is clicked */
+  background-color:#2c3e50; /* Dark blue when the button is clicked */
 }
 
 .status {
