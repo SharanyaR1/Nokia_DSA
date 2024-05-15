@@ -1,4 +1,3 @@
-
 import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useStepContext } from "../StepContext"; // Importing the context hook
@@ -15,7 +14,6 @@ const ServicesSelection = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [servicesBundle, setServicesBundle] = useState([]);
 
-
   useEffect(() => {
     fetch('http://localhost:5009/api/config')
       .then(response => response.json())
@@ -30,15 +28,34 @@ const ServicesSelection = () => {
     optionalServices: config.optionalService,
   }));
 
+  // const handleOptionChange = (bundle) => {
+  //   const selectedBundle = servicesBundle.find(
+  //     (config) => config.bundles === bundle,
+  //   );
+  //   setServices(selectedBundle.services);
+  //   setOptionalServices(selectedBundle.optionalService);
+  //   setSelectedOption(bundle);
+  //   setSelectedServices([]); // Reset selected services when bundle changes
+  // };
+
   const handleOptionChange = (bundle) => {
-    const selectedBundle = servicesBundle.find(
-      (config) => config.bundles === bundle,
-    );
-    setServices(selectedBundle.services);
-    setOptionalServices(selectedBundle.optionalService);
-    setSelectedOption(bundle);
-    setSelectedServices([]); // Reset selected services when bundle changes
-  };
+  if (bundle === "custom") {
+    // Handle custom bundle differently
+    setSelectedOption("custom");
+    setServices([]);
+    setOptionalServices([]);
+    setSelectedServices([]);
+  } else {
+    const selectedBundle = servicesBundle.find((config) => config.bundles === bundle);
+    if (selectedBundle) {
+      setServices(selectedBundle.services);
+      setOptionalServices(selectedBundle.optionalService);
+      setSelectedOption(bundle);
+      setSelectedServices([]); // Reset selected services when bundle changes
+    }
+  }
+};
+
 
   const handleCheckboxChange = (service) => {
     if (selectedServices.includes(service)) {
@@ -59,20 +76,24 @@ const ServicesSelection = () => {
     console.log("Submit button clicked");
 
     try {
-      navigate("/dimensioningIP", {
-        state: {
-          servicesArray: [...services, ...selectedServices].map((name, id) => ({
-            id,
-            name,
-          })),
-        },
-      });
-
-      handleNext();
+      if (selectedOption === "custom") {
+        handleCustomBundle();
+      } else {
+        navigate("/dimensioningIP", {
+          state: {
+            servicesArray: [...services, ...selectedServices].map((name, id) => ({
+              id,
+              name,
+            })),
+          },
+        });
+        handleNext();
+      }
     } catch (error) {
       console.error("Error submitting selected services:", error);
     }
   };
+
   const handlePrev = () => {
     navigate("/Project");
     handlePrevious(); // Call handlePrevious from the stepper context
@@ -96,20 +117,18 @@ const ServicesSelection = () => {
               <label htmlFor={option.id}>{option.label}</label>
             </div>
           ))}
+          <div>
+            <input
+              type="radio"
+              id="custom"
+              value="custom"
+              checked={selectedOption === "custom"}
+              onChange={() => handleOptionChange("custom")}
+            />
+            <label htmlFor="custom">Custom Bundle</label>
+          </div>
         </div>
       </div>
-
-      
-      {/* <div className="bundle-section">
-        <h2>Services</h2>
-        <div className="services">
-          {services.map((service, index) => (
-            <div key={index}>
-              <label>{service}</label>
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       <div className="bundle-section">
         <h2>Optional Services</h2>
@@ -131,7 +150,6 @@ const ServicesSelection = () => {
         </div>
       </div>
 
-
       <div className="bundle-buttons">
         <div className="bundle-normal-btns">
           <button className="submit-btn" onClick={handleSubmit}>
@@ -141,10 +159,6 @@ const ServicesSelection = () => {
             Previous
           </button>
         </div>
-        <div className="divider_custom"></div>
-        <button className="custom-bundle-btn" onClick={handleCustomBundle}>
-          Custom Bundle
-        </button>
       </div>
     </div>
   );
