@@ -152,11 +152,11 @@ const ServicesSelection = () => {
 
       <div className="bundle-buttons">
         <div className="bundle-normal-btns">
+        <button className="back-btn" onClick={handlePrev}>
+            Previous
+          </button>
           <button className="submit-btn" onClick={handleSubmit}>
             Submit
-          </button>
-          <button className="back-btn" onClick={handlePrev}>
-            Previous
           </button>
         </div>
       </div>
