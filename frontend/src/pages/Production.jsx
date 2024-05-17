@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 import LogsPopup from './LogsPopUp';
 import LogsPopup2 from './LogsPopUp2';
 import LoginDialog from '../components/LoginDialog';
+import { Checkmark } from 'react-checkmark' // checkmark-icon
 
 import './Production.css';
 
@@ -235,7 +236,7 @@ const Production = () => {
         }
         setAction1(responseData);
         setLoading1(false);
-        setAction1Status('completed');
+        setAction1Status(<Checkmark size='medium' alt='completed' />);
       } catch (error) {
         //so in this there is no response also when the project name is emptyy in the request it gives 500 error 
         console.error('Error creating package:', error);
@@ -247,15 +248,7 @@ const Production = () => {
 
 
 
-
-
-
-
-
-
-
-
-
+    
     //IF the action is Push to NEAR
     if (action == 'Push to NEAR') {
       console.log("Inside push to NEAR")
@@ -275,7 +268,7 @@ const Production = () => {
         console.log(json);
         setAction2(json);
         setLoading2(false);
-        setAction2Status('completed');
+        setAction2Status(<Checkmark size='medium' alt='completed' />);
 
 
       } catch (error) {
@@ -306,7 +299,7 @@ const Production = () => {
         console.log(responseData); // Changed variable name to responseData
         setAction3(responseData); // Changed variable name to responseData
         setLoading3(false);
-        setAction3Status('completed');
+        setAction3Status(<Checkmark size='medium' alt='completed' />);
         handleNext();
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -326,7 +319,7 @@ const Production = () => {
         console.log(jsonData);
         setAction4(jsonData);
         setLoading4(false);
-        setAction4Status('completed');
+        setAction4Status(<Checkmark size='medium' alt='completed' />);
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading4(false);
@@ -344,7 +337,7 @@ const Production = () => {
         console.log(jsonData);
         setAction5(jsonData);
         setLoading5(false);
-        setAction5Status('completed');
+        setAction5Status(<Checkmark size='medium' alt='completed' />);
         handleNext();
       } catch (error) {
         console.error('Error fetching data:', error);
