@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStepContext } from "../StepContext"; // Import the context hook
 import ProjectContext from '../context/ProjectContext';
 import ServicesContext from '../context/ServicesContext';
@@ -42,49 +42,49 @@ const Production = () => {
   const [action4Success, setAction4Success] = useState(false);
   const [action5Success, setAction5Success] = useState(false);
 
-    // Use useEffect to monitor the success status of each action
-    useEffect(() => {
-      // Enable Action 2 button if Action 1 is successful
-      if (Action1status === 'completed') {
-        setAction2Success(true);
-      } else {
-        setAction2Success(false);
-      }
-    }, [Action1status]);
-  
-    useEffect(() => {
-      // Enable Action 3 button if Action 2 is successful
-      if (Action2status === 'completed') {
-        setAction3Success(true);
-      } else {
-        setAction3Success(false);
-      }
-    }, [Action2status]);
-  
-    useEffect(() => {
-      // Enable Action 4 button if Action 3 is successful
-      if (Action3status === 'completed') {
-        setAction4Success(true);
-      } else {
-        setAction4Success(false);
-      }
-    }, [Action3status]);
-  
-    useEffect(() => {
-      // Enable Action 5 button if Action 4 is successful
-      if (Action4status === 'completed') {
-        setAction5Success(true);
-      } else {
-        setAction5Success(false);
-      }
-    }, [Action4status]);
-  
+  // Use useEffect to monitor the success status of each action
+  useEffect(() => {
+    // Enable Action 2 button if Action 1 is successful
+    if (Action1status === 'completed') {
+      setAction2Success(true);
+    } else {
+      setAction2Success(false);
+    }
+  }, [Action1status]);
+
+  useEffect(() => {
+    // Enable Action 3 button if Action 2 is successful
+    if (Action2status === 'completed') {
+      setAction3Success(true);
+    } else {
+      setAction3Success(false);
+    }
+  }, [Action2status]);
+
+  useEffect(() => {
+    // Enable Action 4 button if Action 3 is successful
+    if (Action3status === 'completed') {
+      setAction4Success(true);
+    } else {
+      setAction4Success(false);
+    }
+  }, [Action3status]);
+
+  useEffect(() => {
+    // Enable Action 5 button if Action 4 is successful
+    if (Action4status === 'completed') {
+      setAction5Success(true);
+    } else {
+      setAction5Success(false);
+    }
+  }, [Action4status]);
+
   //This is for the setstatus output to appear in the UI
   const [status, setStatus] = useState('');
   const [output, setOutput] = useState('');
 
-  const {Project, setProject} = React.useContext(ProjectContext);
-  const {Services, setServices} = React.useContext(ServicesContext);
+  const { Project, setProject } = React.useContext(ProjectContext);
+  const { Services, setServices } = React.useContext(ServicesContext);
 
   const [showLogin, setShowLogin] = useState(true); // State to control login dialog visibility
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -98,22 +98,22 @@ const Production = () => {
 
     // Find maximum length for each column
     const columnWidths = columnHeadings.map((_, i) =>
-        Math.max(...data.map(row => (row[i] ? row[i].toString().length : 0)))
+      Math.max(...data.map(row => (row[i] ? row[i].toString().length : 0)))
     );
 
     // Format each line
     const formattedLines = [];
     formattedLines.push(columnHeadings.join(' '));
     data.forEach(row => {
-        const formattedRow = row.map((item, i) =>
-            (item ? item.toString().padEnd(columnWidths[i]) : '').padEnd(columnWidths[i])
-        ).join(' ');
-        formattedLines.push(formattedRow);
+      const formattedRow = row.map((item, i) =>
+        (item ? item.toString().padEnd(columnWidths[i]) : '').padEnd(columnWidths[i])
+      ).join(' ');
+      formattedLines.push(formattedRow);
     });
 
     // Join the formatted lines
     return formattedLines.join('\n');
-}
+  }
   // Function to handle login form submission
   const handleLoginSubmit = async (loginData) => {
     // Send loginData to backend for authentication
@@ -129,21 +129,21 @@ const Production = () => {
     //   const data = await response.json();
     //   if (response.ok) {
     //     // If authentication is successful, set isLoggedIn to true
-        setIsLoggedIn(true);
-  //     } else {
-  //       // If authentication fails, display error message or handle as needed
-  //       alert('Authentication failed. Please try again.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during login:', error);
-  //     // Handle error
-  //   }
-  // };
+    setIsLoggedIn(true);
+    //     } else {
+    //       // If authentication fails, display error message or handle as needed
+    //       alert('Authentication failed. Please try again.');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error during login:', error);
+    //     // Handle error
+    //   }
+    // };
   }
 
   console.log("The project details are ")
   console.log(Project)
-  
+
 
   const checkstatus = async () => {
     const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
@@ -151,39 +151,39 @@ const Production = () => {
     console.log("Inside checkstatus")
     console.log(data)
     const response = await fetch('http://localhost:5002/checkstatus', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
 
 
     const jsonData = await response.json();
-    
+
     console.log("The response received for status is ");
     console.log(jsonData);
     setStatus(jsonData.result);
     console.log("The status is ")
     // setOutput(formatPodStatus(status));
-};
+  };
 
   const handledownloadButtonClick = async () => {
-    
-    const project_name= Project.projectDetails
+
+    const project_name = Project.projectDetails
     const response = await fetch(`http://localhost:5000/download`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ project_name: project_name })
-    }
-  );
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ project_name: project_name })
+      }
+    );
     const blob = await response.blob();
     saveAs(blob, `${project_name}-0.1.0.tar`);
 
-};
+  };
   const handleButtonClick = async (action) => {
     console.log(`Button "${action}" clicked`);
     const formattedData = {
@@ -193,56 +193,56 @@ const Production = () => {
     };
 
     const formattedData2 = {
-      project_name:Project.projectDetails,
+      project_name: Project.projectDetails,
       version: "0.1.0"
     };
 
     const formattedData3 = {
       project_name: Project.projectDetails
     };
-     
+
     const jsonData = JSON.stringify(formattedData);
     const jsonData2 = JSON.stringify(formattedData2);
     const jsonData3 = JSON.stringify(formattedData3);
-    
+
     console.log("The json data is ")
     console.log(jsonData)
     console.log(jsonData2)
     console.log(jsonData3)
 
-// IF the action is Create Package
-//the response from the server. If the server returns a successful response (status code 200-299),
-if (action === 'Create Package') {
-  setLoading1(true);
+    // IF the action is Create Package
+    //the response from the server. If the server returns a successful response (status code 200-299),
+    if (action === 'Create Package') {
+      setLoading1(true);
 
-  try {
-    const responsePromise = fetch('http://localhost:5000/aggregate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: jsonData
-    });
+      try {
+        const responsePromise = fetch('http://localhost:5000/aggregate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonData
+        });
 
-    
-    const response = await responsePromise;
-    const responseData = await response.json();
-    console.log("The response1 received is ", responseData);
-    
-    //
-    if (!response.ok) {
-      throw new Error('Failed to create package');
+
+        const response = await responsePromise;
+        const responseData = await response.json();
+        console.log("The response1 received is ", responseData);
+
+        //
+        if (!response.ok) {
+          throw new Error('Failed to create package');
+        }
+        setAction1(responseData);
+        setLoading1(false);
+        setAction1Status('completed');
+      } catch (error) {
+        //so in this there is no response also when the project name is emptyy in the request it gives 500 error 
+        console.error('Error creating package:', error);
+        setLoading1(false);
+        setAction1Status('failed');
+      }
     }
-    setAction1(responseData);
-    setLoading1(false);
-    setAction1Status('completed');
-  } catch (error) {
-    //so in this there is no response also when the project name is emptyy in the request it gives 500 error 
-    console.error('Error creating package:', error);
-    setLoading1(false);
-    setAction1Status('failed');
-  }
-}
 
 
 
@@ -255,20 +255,20 @@ if (action === 'Create Package') {
 
 
 
-    
+
     //IF the action is Push to NEAR
     if (action == 'Push to NEAR') {
       console.log("Inside push to NEAR")
       console.log(jsonData2)
       setLoading2(true);
       try {
-        const response = await fetch('http://localhost:5000/pushtorepo',{
+        const response = await fetch('http://localhost:5000/pushtorepo', {
 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: jsonData2
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonData2
         });
         const json = await response.json();
         console.log("The response received is ")
@@ -282,7 +282,7 @@ if (action === 'Create Package') {
         console.error('Error fetching data:', error);
         setLoading2(false);
         setAction2Status('failed');
-    };
+      };
     }
 
     //IF the action is Test
@@ -291,31 +291,31 @@ if (action === 'Create Package') {
       console.log(jsonData3)
       setLoading3(true);
       try {
-          const response = await fetch('http://localhost:5001/deployinprod', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: jsonData3
-          });
+        const response = await fetch('http://localhost:5001/deployinprod', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: jsonData3
+        });
 
-      
-     
-          const responseData = await response.json(); // Changed variable name to responseData
-          console.log("The response received is ");
-          console.log(responseData); // Changed variable name to responseData
-          setAction3(responseData); // Changed variable name to responseData
-          setLoading3(false);
-          setAction3Status('completed');
-          handleNext();
+
+
+        const responseData = await response.json(); // Changed variable name to responseData
+        console.log("The response received is ");
+        console.log(responseData); // Changed variable name to responseData
+        setAction3(responseData); // Changed variable name to responseData
+        setLoading3(false);
+        setAction3Status('completed');
+        handleNext();
       } catch (error) {
-          console.error('Error fetching data:', error);
-          setLoading3(false);
-          setAction3Status('failed');
+        console.error('Error fetching data:', error);
+        setLoading3(false);
+        setAction3Status('failed');
       }
-  }
-  
-    
+    }
+
+
     //IF the action is Push to Customer Repo
     if (action === 'Push to Customer Repo') {
       setLoading4(true);
@@ -331,7 +331,7 @@ if (action === 'Create Package') {
         console.error('Error fetching data:', error);
         setLoading4(false);
         setAction4Status('failed');
-    };
+      };
     }
 
     //IF the action is Deploy in production
@@ -350,7 +350,7 @@ if (action === 'Create Package') {
         console.error('Error fetching data:', error);
         setLoading5(false);
         setAction5Status('failed');
-    };
+      };
     }
 
   };
@@ -358,10 +358,10 @@ if (action === 'Create Package') {
 
   return (
     <div className="production-container">
-       {showLogin && !isLoggedIn && ( // Render login dialog if showLogin is true and user is not logged in
+      {showLogin && !isLoggedIn && ( // Render login dialog if showLogin is true and user is not logged in
         <LoginDialog onSubmit={handleLoginSubmit} />
       )}
-      { isLoggedIn && <div className="production-section">
+      {isLoggedIn && <div className="production-section">
         <button onClick={() => handleButtonClick('Create Package')}>Create Package</button>
         <label>Approver: </label>
         <input
@@ -372,63 +372,65 @@ if (action === 'Create Package') {
         />
         <div className="production-status">
           <label>Status: </label>
-          {loading1? (
+          {loading1 ? (
             <label className="status">Loading
-            <img
-              className="350.gif"
-              src="/350.gif" // Replace with the path to your loading GIF
-            />
+              <img
+                className="350.gif"
+                src="/350.gif" // Replace with the path to your loading GIF
+              />
             </label>
           ) : (
             <label className="status">{Action1status}</label>
           )}
         </div>
-       
+
         <p>
-        <div>
-  {
-    Action1status === 'completed' && 
-    <button 
-      className='Download' 
-      onClick={handledownloadButtonClick} 
-      style={{
-        height: '50px',
-        width:'200px',
-        backgroundColor: '#4682B4',
-        color: 'white', 
-        border: 'none', 
-        padding: '10px 20px', 
-        borderRadius: '50px',
-        display: 'inline-block',
-        marginTop: '10px' // Adjust this value to add space between the button and the content above
-      }}
-    >
-      Download
-    </button>
-  }
-    {console.log("LOADING STATUS")}
-{console.log(loading1)}
-  {loading1===true && (
-  <LogsPopup isOpen={true}/>
-  )
-}
+          <div>
+            {
+              Action1status === 'completed' &&
+              <button
+                className='Download'
+                onClick={handledownloadButtonClick}
+                style={{
+                  height: '50px',
+                  width: '150px',
+                  backgroundColor: '#4682B4',
+                  color: 'white',
+                  border: 'none',
+                  padding: '10px 20px',
+                  borderRadius: '50px',
+                  display: 'inline-block',
+                  marginTop: '10px',  // Adjust this value to add space between the button and the content above
+                  marginLeft: '30px',
+                  fontSize: 'medium'
+                }}
+              >
+                Download
+              </button>
+            }
+            {console.log("LOADING STATUS")}
+            {console.log(loading1)}
+            {loading1 === true && (
+              <LogsPopup isOpen={true} />
+            )
+            }
 
 
-    {/* Conditionally render the popup when Action1status is 'completed' */}
-    {Action1status === 'completed' && (
-          <CreatePackagePopup
-            message="Package created"
-            isOpen={true}    
-       // Replace with your trigger element
-          />
-        )}
-</div>
+            {/* Conditionally render the popup when Action1status is 'completed' */}
+            {Action1status === 'completed' && (
+              <CreatePackagePopup
+                message="Package created"
+                isOpen={true}
+              // Replace with your trigger element
+              />
+            )}
+          </div>
 
         </p>
-      </div> }
+      </div>}
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to NEAR')}disabled={!action2Success}>Push to NEAR</button>
+        <button onClick={() => handleButtonClick('Push to NEAR')} disabled={!action2Success}>Push to NEAR</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -438,77 +440,77 @@ if (action === 'Create Package') {
         />
         <div className="production-status">
           <label>Status: </label>
-          {loading2? (
-            <label  className="status">Loading
-             <img
-              className="350.gif"
-              src="/350.gif" // Replace with the path to your loading GIF
-            /></label>
+          {loading2 ? (
+            <label className="status">Loading
+              <img
+                className="350.gif"
+                src="/350.gif" // Replace with the path to your loading GIF
+              /></label>
           ) : (
-            <label  className="status">{Action2status}</label>
+            <label className="status">{Action2status}</label>
           )}
         </div>
-        {loading2===true && (
-  <LogsPopup isOpen={true}/>
-  )
-}
+        {loading2 === true && (
+          <LogsPopup isOpen={true} />
+        )
+        }
+      </div>
+      <div className="production-section">
+        <button onClick={() => handleButtonClick('Test')} disabled={!action3Success}>Test</button>
+        <label>Approver: </label>
+        <input
+          className="production-input"
+          type="text"
+          value={customerRepoApprover}
+          onChange={(e) => setCustomerRepoApprover(e.target.value)}
+        />
+        <div className="production-status">
+          <label >Status: </label>
+          {loading3 ? (
+            <label className="status">Loading
+              <img
+                className="350.gif"
+                src="/350.gif" // Replace with the path to your loading GIF
+              /></label>
+          ) : (
+            <label className="status">{Action3status}</label>
+          )}
+        </div>
+
+        {
+          //-------------------------------------------------
+          <button
+            className='CheckStatus'
+            onClick={checkstatus}
+            style={{
+              height: '50px',
+              width: '150px',
+              backgroundColor: '#4682B4',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '50px',
+              display: 'inline-block',
+              marginTop: '10px',
+              marginLeft: '30px',
+              fontSize: 'medium'
+            }}
+          >
+            Check Status
+          </button>
+
+        }
+
+        {loading3 === true && (
+          <LogsPopup2 isOpen={true} />
+        )}
+
+        {/*to check status of deployments in the kubernetes cluster*/}
+        {status && <div><br /><p>{status}</p></div>}
       </div>
 
-    <div className="production-section"></div>
-<div className="production-section">
-  <button onClick={() => handleButtonClick('Test')}disabled={!action3Success}>Test</button>
-  <label>Approver: </label>
-  <input
-    className="production-input"
-    type="text"
-    value={customerRepoApprover}
-    onChange={(e) => setCustomerRepoApprover(e.target.value)}
-  />
-  <div className="production-status">
-    <label >Status: </label>
-    {loading3 ? (
-      <label  className="status">Loading
-       <img
-              className="350.gif"
-              src="/350.gif" // Replace with the path to your loading GIF
-            /></label>
-    ) : (
-      <label  className="status">{Action3status}</label>
-    )}
-  </div>
-  
-  {
-    <button 
-      className='CheckStatus' 
-      onClick={checkstatus} 
-      style={{
-        height: '50px',
-        width:'200px',
-        backgroundColor: '#4682B4',
-        color: 'white', 
-        border: 'none', 
-        padding: '10px 20px', 
-        borderRadius: '50px',
-        display: 'inline-block',
-        marginTop: '10px' // Adjust this value to add space between the button and the content above
-      }}
-    >
-    Check Status
-
-   
-    </button>
-   
-  }
-  
-  {loading3===true && (
-    <LogsPopup2 isOpen={true}/>
-  )}
-
-  {/*to check status of deployments in the kubernetes cluster*/}
-{status && <div><br /><p>{status}</p></div>}
-</div>
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to Customer Repo')}disabled={!action4Success}>Push to Customer Repo</button>
+        <button onClick={() => handleButtonClick('Push to Customer Repo')} disabled={!action4Success}>Push to Customer Repo</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -519,19 +521,19 @@ if (action === 'Create Package') {
         <div className="production-status">
           <label>Status: </label>
           {loading4 ? (
-            <label  className="status">Loading
-             <img
-              className="350.gif"
-              src="/350.gif" // Replace with the path to your loading GIF
-            /></label>
+            <label className="status">Loading
+              <img
+                className="350.gif"
+                src="/350.gif" // Replace with the path to your loading GIF
+              /></label>
           ) : (
-            <label  className="status">{Action4status}</label>
+            <label className="status">{Action4status}</label>
           )}
         </div>
       </div>
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Deploy in production')}disabled={!action5Success}>Deploy in production</button>
+        <button onClick={() => handleButtonClick('Deploy in production')} disabled={!action5Success}>Deploy in production</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -542,13 +544,13 @@ if (action === 'Create Package') {
         <div className="production-status">
           <label>Status: </label>
           {loading5 ? (
-            <label  className="status">Loading
-             <img
-              className="350.gif"
-              src="/350.gif" // Replace with the path to your loading GIF
-            /></label>
+            <label className="status">Loading
+              <img
+                className="350.gif"
+                src="/350.gif" // Replace with the path to your loading GIF
+              /></label>
           ) : (
-            <label  className="status">{Action5status}</label>
+            <label className="status">{Action5status}</label>
           )}
         </div>
       </div>
