@@ -31,15 +31,15 @@ const LoginDialog = ({ onSubmit }) => {
       <div className="login-dialog-content">
         
         <label>
-          Repo Username:
+          Repository Username:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
         </label>
         <label>
-          Password:
+          Repository Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <label>
-          Email:
+          Repository URL:
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <button onClick={handleSubmit}>Login</button>
