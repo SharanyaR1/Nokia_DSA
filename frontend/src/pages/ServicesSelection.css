@@ -1,15 +1,20 @@
 .container {
-  max-width: 600px;
-  margin: 25px 200px 60px 30px;
+  width: 450px;
+  height: 350px;
+  margin: 25px 200px 60px 400px;
   padding: 20px 40px 20px 30px;
   /* padding-right: 200px; */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: block;
+  justify-content: center;
+  align-items: center;
 }
 
 .bundle-section {
   margin-bottom: 40px;
+
 }
 
 .bundle-section h2 {

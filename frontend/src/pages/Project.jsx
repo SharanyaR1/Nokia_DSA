@@ -325,7 +325,7 @@ const Project = () => {
       {showAuthModal && (
         <div className="auth-modal">
           <div className="auth-modal-content">
-            <h2>Authentication</h2>
+            <h2> User Authentication</h2>
             <form onSubmit={handleAuthentication}>
               <div className="form-group">
                 <label htmlFor="username">Username:</label>
@@ -337,7 +337,7 @@ const Project = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password:</label>
+                <label htmlFor="password">Password:  </label>
                 <input
                   id="password"
                   type="password"
