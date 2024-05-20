@@ -85,7 +85,7 @@ const Production = () => {
   const [output, setOutput] = useState('');
 
   const { Project, setProject } = React.useContext(ProjectContext);
-  const { Services, setServices } = React.useContext(ServicesContext);
+  const { services, setServices } = React.useContext(ServicesContext);
 
   const [showLogin, setShowLogin] = useState(true); // State to control login dialog visibility
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
@@ -190,8 +190,11 @@ const Production = () => {
     const formattedData = {
       project_name: Project.projectDetails,
       version: "0.1.0",
-      charts: Services
+      charts: services
     };
+
+    console.log("The Services are")
+    console.log(services)
 
     const formattedData2 = {
       project_name: Project.projectDetails,
@@ -215,7 +218,8 @@ const Production = () => {
     //the response from the server. If the server returns a successful response (status code 200-299),
     if (action === 'Create Package') {
       setLoading1(true);
-
+      console.log("Inside Create Package button 1")
+      console.log(jsonData)
       try {
         const responsePromise = fetch('http://localhost:5000/aggregate', {
           method: 'POST',

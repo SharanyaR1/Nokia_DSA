@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FinalServicesPage = () => {
   const {selectedServices, setSelectedServices, services, setServices, optionalServices, setOptionalServices} = React.useContext(ServicesContext);
   const navigate = useNavigate();
+  
   const handleServiceSelect = (service) => {
     setSelectedServices(prevServices => {
       return [...prevServices, service];
