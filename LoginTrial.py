@@ -4,6 +4,7 @@ import yaml
 import json
 from logging.config import dictConfig
 import subprocess
+from flask_cors import CORS, cross_origin
 from git import Repo,GitCommandError
 
 # THIS IS FOR LOGGING IT WRITES THE LOGS TO A FILE CALLED aggregator.log
@@ -32,11 +33,12 @@ dictConfig(
 )
 
 app = Flask(__name__)
-
+CORS(app)
 
 ###################################
 
 @app.route('/logindetails', methods=['POST'])
+@cross_origin()
 def add_service():
     try:
         data = request.json

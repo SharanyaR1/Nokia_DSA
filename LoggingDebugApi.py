@@ -2,15 +2,17 @@ from flask import Flask,request,jsonify
 import os
 import shutil
 import subprocess
+from flask_cors import CORS, cross_origin
 
 app=Flask(__name__)
+CORS(app)
 
 
 
 
 
-
-@app.route('/checkstatus')
+@app.route('/checkstatus',methods=['POST'])
+@cross_origin()
 def checkstatus():
     data = request.get_json()
     helm_release = data['project_name']

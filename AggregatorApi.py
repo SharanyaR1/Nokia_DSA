@@ -40,12 +40,14 @@ dictConfig(
 def send_messages():
     while True:
         # Simulating continuous message sending every second
-        with open('aggregator.log') as f:
+        file_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'aggregator.log')
+
+        with open(file_path) as f:
             data=f.readlines()
 
         lastline=data[-1]
         socketio.emit('messageFromBackend', {'message': lastline})
-        time.sleep(1)
+        time.sleep(2)
 
 
 app = Flask(__name__)
@@ -161,7 +163,7 @@ def pushingtorepo():
 
 
 
-@app.route('/download')
+@app.route('/download',methods=['POST'])
 def download():
     # tarball name
     data = request.get_json()
