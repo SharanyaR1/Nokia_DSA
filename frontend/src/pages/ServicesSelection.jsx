@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import ServicesContext from "../context/ServicesContext";
 import { useStepContext } from "../StepContext"; // Importing the context hook
 // import servicesBundle from "../config/servicesBundle.json"; // Importing the configuration file
 import "./ServicesSelection.css";
@@ -7,13 +8,14 @@ import "./ServicesSelection.css";
 const ServicesSelection = () => {
   const navigate = useNavigate();
   const { handleNext, handlePrevious } = useStepContext(); // Using the context hook
+  const {selectedServices,setSelectedServices,services,setServices,optionalServices,setOptionalServices} = React.useContext(ServicesContext);
 
   const [selectedOption, setSelectedOption] = useState("");
-  const [services, setServices] = useState([]);
-  const [optionalServices, setOptionalServices] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
+  // const [services, setServices] = useState([]);
+  // const [optionalServices, setOptionalServices] = useState([]);
+  // const [selectedServices, setSelectedServices] = useState([]);
   const [servicesBundle, setServicesBundle] = useState([]);
-
+  
   useEffect(() => {
     fetch('http://localhost:5009/api/config')
       .then(response => response.json())
@@ -79,13 +81,13 @@ const ServicesSelection = () => {
       if (selectedOption === "custom") {
         handleCustomBundle();
       } else {
-        navigate("/dimensioningIP", {
-          state: {
-            servicesArray: [...services, ...selectedServices].map((name, id) => ({
-              id,
-              name,
-            })),
-          },
+        navigate("/FinalServices", {
+          // state: {
+          //   servicesArray: [...services, ...selectedServices].map((name, id) => ({
+          //     id,
+          //     name,
+          //   })),
+          // },
         });
         handleNext();
       }
@@ -130,7 +132,7 @@ const ServicesSelection = () => {
         </div>
       </div>
 
-      <div className="bundle-section">
+      {/* <div className="bundle-section">
         <h2>Optional Services</h2>
         <div className="optional-services">
           {optionalServices.map((service, index) => (
@@ -148,7 +150,7 @@ const ServicesSelection = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="bundle-buttons">
         <div className="bundle-normal-btns">

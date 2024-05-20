@@ -312,6 +312,7 @@ console.log(dependencytpsmap);
     console.log(combinedHashMap)
 
     await insertInput(collection, combinedHashMap);
+    
     // Respond with the calculated number of pods for all services
     console.log("combinedHashMap")
     console.log(combinedHashMap)
