@@ -96,7 +96,12 @@ def aggregate():
         repository=image_config['repository']
         for i in data["charts"]:
             # Pull Helm charts using the repository URL from config
-            imagename=image_config['images'][i]['name']
+            # imagename=image_config['images'][i]['name']
+            
+            if i in image_config['images']:
+                imagename=image_config['images'][i]['name']
+            else:
+                imagename=i
             os.system(f"helm pull oci://{repository_url}/{imagename}chart --untar")
             
             values_yaml_path = os.path.join(current_dir, data["project_name"], data["project_name"] + "-charts", "charts", imagename+'chart', 'values.yaml')
