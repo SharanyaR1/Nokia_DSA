@@ -212,13 +212,21 @@ const Project = () => {
     // Fetch existing projects from the API
     const fetchExistingProjects = async () => {
       try {
-        const response = await fetch('http://localhost:4007/api/projects');
+        const response = await fetch('http://localhost:4007/api/project/all/');
         if (!response.ok) {
           throw new Error('Failed to fetch existing projects');
         }
         const data = await response.json();
-        const existingProjects = data.projects; // Assuming the API response contains an array of projects
-        localStorage.setItem("existingProjects", JSON.stringify(existingProjects));
+        console.log(data)
+        console.log("Putting it in Local Storage")
+        
+        //take it the projectdetails from the javascript object and convert it to array
+        // const existingProjects = data.map(project => project.projectDetails);
+        // console.log(existingProjects);
+        // localStorage.setItem("existingProjects", JSON.stringify(existingProjects));
+
+        localStorage.setItem('projects', JSON.stringify(data));
+
       } catch (error) {
         console.error('Error fetching existing projects:', error);
         // Handle error
@@ -244,18 +252,33 @@ const Project = () => {
     } else {
       setOwnerError('');
     }
-
+  //   {
+  //     "_id": "660be1202cdf3ab60a7e738f",
+  //     "projectId": "m4yf55ll",
+  //     "projectDetails": "ABC",
+  //     "projectOwner": "A"
+  // },
+  // {
+  //     "_id": "660c36470809dc82cb1fcf48",
+  //     "projectId": "1e1cifhx",
+  //     "projectDetails": "A",
+  //     "projectOwner": "B"
+  // },
     // Check if project details already exist
     const existingProjectsFromLocalStorage = JSON.parse(localStorage.getItem("existingProjects")) || [];
+    console.log("Existing Projects From Local Storage")
+    console.log(existingProjectsFromLocalStorage)
+
     const isDetailsUnique = !existingProjectsFromLocalStorage.some(project => project.projectDetails === projectDetails && project.projectOwner === projectOwner);
 
     if (!isDetailsUnique) {
+      console.log("NOT UNIQUE")
       setDetailsError("Project name already exists.");
       return;
     } else {
+      console.log("UNIQUE")
       setDetailsError(""); // Clear error if details are unique
     }
-
     // Generate a unique project ID
     const projectId = generateUniqueId();
 
@@ -274,7 +297,7 @@ const Project = () => {
     const updatedProjects = [...existingProjectsFromLocalStorage, { projectDetails, projectOwner }];
     localStorage.setItem("existingProjects", JSON.stringify(updatedProjects));
 
-    // Send project data to the backend
+    // Send project data to the backend , TO STORE IN THE DB
     try {
       const response = await fetch('http://localhost:4007/api/project/', {
         method: 'POST',

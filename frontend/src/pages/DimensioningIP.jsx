@@ -14,7 +14,7 @@ const DimensioningIP = () => {
   const [inputs, setInputs] = useState({});
   const [selectedVersions, setSelectedVersions] = useState({});
   
-
+  /*INSTEAD GLOBAL PROJECT ID CAN BE TAKEN FROM THE GLOBAL PROJECT VARIABLE*/
   useEffect(() => {
     // Fetch project ID when the component mounts
     fetch('http://localhost:4007/api/project')

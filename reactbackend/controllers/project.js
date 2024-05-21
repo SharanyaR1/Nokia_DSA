@@ -60,8 +60,24 @@ const getprojectdetails = async (req, res) => {
     }
 }
 
+const getallprojectdetails = async(req,res) =>{
+    const collection = await connectToMongoDB();
+
+    if (!collection) {
+        return res.status(500).json({ error: 'Failed to connect to MongoDB' });
+    }
+
+    try {
+        const projectdetails = await collection.find().toArray();
+        res.status(200).json(projectdetails);
+    } catch (error) {
+        console.error('Error fetching project details from MongoDB:', error);
+        res.status(500).json({ error: 'Failed to fetch project details from MongoDB' });
+    }
+
+}
 module.exports = {
-    storeprojectdetails,getprojectdetails
+    storeprojectdetails,getprojectdetails,getallprojectdetails
 };
 
 
