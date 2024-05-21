@@ -1,5 +1,5 @@
 .dimensioning-ip {
-  width: 300px;
+  width: 350px;
   margin: 25px 200px 60px 400px;
   padding: 10px 40px 20px 30px;
   /* padding-right: 200px; */
@@ -11,14 +11,15 @@
   align-items: center;
 }
 
-.dimensioning-ip h2 {
+/* .dimensioning-ip h2 {
   font-size: 24px;
   margin-bottom: 20px;
-}
+} */
 
 .dimensioning-ip h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-size: 22px;
+  margin-bottom: 30px;
+  color: #333;
 }
 
 .dimensioning-ip form {
@@ -29,6 +30,7 @@
 .dimensioning-ip ul {
   list-style-type: none;
   padding: 0;
+  color: #333;
 }
 
 .dimensioning-ip li {

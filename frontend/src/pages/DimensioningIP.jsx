@@ -90,7 +90,7 @@ const DimensioningIP = () => {
         <form onSubmit={handleSubmit}>
           <h3>Dimensioning Input</h3>
           <select onChange={handleMasterVersionChange}>
-                  <option value="">Select</option>
+                  <option value="">Select version</option>
                   <option value="Latest">Latest</option>
                   <option value="1.0">1.0</option>
                   <option value="2.0">2.0</option>

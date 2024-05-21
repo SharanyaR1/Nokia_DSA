@@ -1,15 +1,93 @@
-import React, { useState, useContext } from 'react';
+// import React, { useContext } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import ServicesContext from '../context/ServicesContext';
+// import './FinalServicesPage.css';
+
+// const FinalServicesPage = () => {
+//   const { selectedServices, setSelectedServices, services, optionalServices } = useContext(ServicesContext);
+//   const navigate = useNavigate();
+
+//   const handleServiceSelect = (service) => {
+//     setSelectedServices((prevServices) => [...prevServices, service]);
+//   };
+
+//   const handlePrevious = () => {
+//     navigate(-1);
+//   };
+
+//   const handleOptionalServiceSelect = (service, isChecked) => {
+//     setSelectedServices((prevServices) => {
+//       if (isChecked) {
+//         return [...prevServices, service];
+//       } else {
+//         return prevServices.filter((s) => s !== service);
+//       }
+//     });
+//   };
+
+//   const handleSubmit = () => {
+//     navigate('/dimensioningIP', {
+//       state: {
+//         servicesArray: [...services, ...selectedServices].map((name, id) => ({
+//           id,
+//           name,
+//         })),
+//       },
+//     });
+//   };
+
+//   return (
+//     <div className="container">
+//       <div className="flex-container">
+//         <div className="services-container">
+//           <h3>Services</h3>
+//           {services.map((service, index) => (
+//             <button
+//               key={index}
+//               className="service-button"
+//               onClick={() => handleServiceSelect(service)}
+//             >
+//               {service}
+//             </button>
+//           ))}
+//         </div>
+//         <div className="optional-services-container">
+//           <h3>Optional Services</h3>
+//           {optionalServices.map((service, index) => (
+//             <div key={index} className="optional-service">
+//               <input
+//                 type="checkbox"
+//                 name="optionalService"
+//                 value={service}
+//                 onChange={(e) => handleOptionalServiceSelect(service, e.target.checked)}
+//               />
+//               {service}
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//       <div className="buttons-container">
+//         <button onClick={handlePrevious}>Previous</button>
+//         <button onClick={handleSubmit}>Submit</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FinalServicesPage;
+
+
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ServicesContext from '../context/ServicesContext';
-import { useNavigate } from "react-router-dom";
+import './FinalServicesPage.css';
 
 const FinalServicesPage = () => {
-  const {selectedServices, setSelectedServices, services, setServices, optionalServices, setOptionalServices} = React.useContext(ServicesContext);
+  const { selectedServices, setSelectedServices, services, optionalServices } = useContext(ServicesContext);
   const navigate = useNavigate();
-  
+
   const handleServiceSelect = (service) => {
-    setSelectedServices(prevServices => {
-      return [...prevServices, service];
-    });
+    setSelectedServices((prevServices) => [...prevServices, service]);
   };
 
   const handlePrevious = () => {
@@ -17,19 +95,17 @@ const FinalServicesPage = () => {
   };
 
   const handleOptionalServiceSelect = (service, isChecked) => {
-    setSelectedServices(prevServices => {
+    setSelectedServices((prevServices) => {
       if (isChecked) {
-        // If the checkbox is checked, add the service to the array
         return [...prevServices, service];
       } else {
-        // If the checkbox is unchecked, remove the service from the array
-        return prevServices.filter(s => s !== service);
+        return prevServices.filter((s) => s !== service);
       }
     });
   };
 
   const handleSubmit = () => {
-    navigate("/dimensioningIP", {
+    navigate('/dimensioningIP', {
       state: {
         servicesArray: [...services, ...selectedServices].map((name, id) => ({
           id,
@@ -39,50 +115,43 @@ const FinalServicesPage = () => {
     });
   };
 
-  const commonStyles = {
-    display: 'block', 
-    width: '95%', 
-    padding: '10px', 
-    margin: '10px 0',
-    fontSize: '16px',
-    border: '1px solid black', 
-    backgroundColor: '#f8f8f8', 
-    cursor: 'pointer',
-    color:'black',
-    borderRadius:'10px'
-  };
-
   return (
-    <div>
-    <div style={{ display: 'flex', marginTop: '50px' }}>
-      <div style={{ border: '1px solid black', color:'black',padding: '10px', marginRight: '20px', width: '300px', maxHeight: '300px', overflowY: 'auto' }}>
-        <h3>Services</h3>
-        {services.map((service, index) => (
-          <button key={index} style={commonStyles} onClick={() => handleServiceSelect(service)}>
-            {service}
-          </button>
-        ))}
+    <div className="final-services-container">
+      <div className="flex-container">
+        <div className="services-list-container">
+          <h3>Services</h3>
+          {services.map((service, index) => (
+            <button
+              key={index}
+              className="service-button"
+              onClick={() => handleServiceSelect(service)}
+            >
+              {service}
+            </button>
+          ))}
+        </div>
+        <div className="optional-services-list-container">
+          <h3>Optional Services</h3>
+          {optionalServices.map((service, index) => (
+            <label key={index} className="optional-service-item">
+              <input
+                type="checkbox"
+                name="optionalService"
+                value={service}
+                onChange={(e) => handleOptionalServiceSelect(service, e.target.checked)}
+              />
+              {service}
+            </label>
+          ))}
+        </div>
       </div>
-      <div style={{border: '1px solid black', padding: '10px', width: '300px', maxHeight: '300px', overflowX: 'hidden' }}>
-        <h3>Optional Services</h3>
-        {optionalServices.map((service, index) => (
-          <div key={index} style={commonStyles}>
-            <input 
-              type="checkbox" 
-              name="optionalService" 
-              value={service} 
-              onChange={(e) => handleOptionalServiceSelect(service, e.target.checked)}
-            />
-            {service}
-          </div>
-        ))}
+      <div className="buttons-container">
+        <button className="action-button" onClick={handlePrevious}>Previous</button>
+        <button className="action-button" onClick={handleSubmit}>Submit</button>
       </div>
-      </div>
-      <button onClick={handlePrevious}>Previous</button>
-      <button onClick={handleSubmit}>Submit</button>
-   
     </div>
   );
 };
 
 export default FinalServicesPage;
+
