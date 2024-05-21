@@ -86,8 +86,8 @@ const DimensioningOutput = () => {
         <tbody>
           {backendResponse &&
             Object.keys(backendResponse).map((bundle) => (
-              <tr key={bundle}>
-                <td>{bundle}</td>
+              <tr key={bundle} style={{ backgroundColor: 'white', color: 'black' }}>
+                <td >{bundle}</td>
                 <td>{backendResponse[bundle]['Pod count required']}</td>
                 <td>{backendResponse[bundle]['Pod CPU']}</td>
                 <td>{backendResponse[bundle]['Pod RAM']}</td>
@@ -97,7 +97,7 @@ const DimensioningOutput = () => {
             ))}
         </tbody>
         <tfoot>
-          <tr>
+          <tr style={{ backgroundColor: 'white', color: 'black', fontWeight:'bold'}}>
             <td colSpan="4">Total:</td>
             <td>{totalPodCPU}</td>
             <td>{totalPodRAM}</td>

@@ -24,9 +24,10 @@
 h2 {
   margin-bottom: 20px;
   display: inline-block;
+  color: #333;
 }
 
-.buttons-container {
+.homepage-form .buttons-container {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
@@ -38,17 +39,18 @@ button {
   padding: 10px;
   margin: 5px;
   width: 150px;
-  background-color: #3498db;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: bolder;
+  font-size: 14px;
 }
 
 button:hover {
-  background-color: #2980b9;
+  background-color: #0056b3;
 }
 
 /* Media queries for responsiveness */
@@ -66,7 +68,7 @@ button:hover {
     margin-bottom: 100px;
   }
 
-  .buttons-container {
+.buttons-container {
     display: flex;
     flex-direction: column;
   }

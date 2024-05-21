@@ -459,7 +459,7 @@ const Production = () => {
         }
       </div>
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Test')} disabled={!action3Success}>Test</button>
+        <button onClick={() => handleButtonClick('Test')} disabled={!action3Success}>Deploy and Test in Lab</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -513,7 +513,7 @@ const Production = () => {
       </div>
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to Customer Repo')} disabled={!action4Success}>Push to Customer Repo</button>
+        <button onClick={() => handleButtonClick('Push to Customer Repo')} disabled={!action4Success}>Push to Customer Repository</button>
         <label>Approver: </label>
         <input
           className="production-input"
@@ -536,7 +536,7 @@ const Production = () => {
       </div>
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Deploy in production')} disabled={!action5Success}>Deploy in production</button>
+        <button onClick={() => handleButtonClick('Deploy in production')} disabled={!action5Success}>Deploy and Test in Production</button>
         <label>Approver: </label>
         <input
           className="production-input"

@@ -158,7 +158,7 @@ const ServicesSelection = () => {
             Previous
           </button>
           <button className="submit-btn" onClick={handleSubmit}>
-            Submit
+            Next
           </button>
         </div>
       </div>
