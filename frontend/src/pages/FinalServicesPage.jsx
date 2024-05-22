@@ -80,18 +80,22 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ServicesContext from '../context/ServicesContext';
+import { useStepContext } from "../StepContext";
 import './FinalServicesPage.css';
 
 const FinalServicesPage = () => {
   const { selectedServices, setSelectedServices, services, optionalServices } = useContext(ServicesContext);
   const navigate = useNavigate();
 
+  const { handleNext, handlePrevious } = useStepContext();
+
   const handleServiceSelect = (service) => {
     setSelectedServices((prevServices) => [...prevServices, service]);
   };
 
-  const handlePrevious = () => {
+  const handlePrev = () => {
     navigate(-1);
+    handlePrevious();
   };
 
   const handleOptionalServiceSelect = (service, isChecked) => {
@@ -146,7 +150,7 @@ const FinalServicesPage = () => {
         </div>
       </div>
       <div className="buttons-container">
-        <button className="action-button" onClick={handlePrevious}>Previous</button>
+        <button className="action-button" onClick={handlePrev}>Previous</button>
         <button className="action-button" onClick={handleSubmit}>Submit</button>
       </div>
     </div>

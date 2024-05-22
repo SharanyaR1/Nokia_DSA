@@ -230,7 +230,7 @@ const CustomBundles = () => {
   const handlePrev = () => {
     // Reset completion status when going back
     navigate('/ServicesSelection');
-    handlePrevious(); // Call handlePrevious from the stepper context
+    //handlePrevious(); // Call handlePrevious from the stepper context
   };
 
   return (
@@ -248,7 +248,7 @@ const CustomBundles = () => {
           <DroppedServices droppedServices={droppedServices} onRemove={handleRemove}/>
         </div>
         <div className="button-container">
-        <button onClick={handlePrev} disabled={droppedServices.length === 0}>Previous</button>
+        <button onClick={handlePrev} >Previous</button>
           <button onClick={handleViewSummary} disabled={droppedServices.length === 0}>Next</button>
         </div>
       </div>

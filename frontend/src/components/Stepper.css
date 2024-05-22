@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 9rem;
+    width: 12rem;
   }
   
   .step-item:not(:first-child)::before {
