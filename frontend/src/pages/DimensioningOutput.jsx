@@ -62,6 +62,10 @@ const DimensioningOutput = () => {
     navigate('/nextStep'); // Navigate to the next step route
     navigate('/Production');
   };
+  const handlePrev = () => {
+    navigate('/DimensioningIP');
+     // Call handlePrevious from the stepper context
+  };
 
   useEffect(()=>{
 
@@ -105,7 +109,8 @@ const DimensioningOutput = () => {
         </tfoot>
       </table>
       <br />
-      <button onClick={handleDimensioningSignoff}>Dimensioning Signoff</button>
+      <button onClick={handlePrev} style={{ width: '200px', height: '50px', fontSize: '18px' }} >Previous</button>
+      <button onClick={handleDimensioningSignoff} style={{ width: '220px', height: '50px', fontSize: '18px' }} >Dimensioning Signoff</button>
     </div>
   );
 };

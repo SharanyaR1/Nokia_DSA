@@ -114,6 +114,7 @@ const DimensioningIP = () => {
                 </select>
                 <input
                   type="number"
+                  placeholder="Traffic Input"
                   value={inputs[service.name] || ''}
                   onChange={(event) => handleInputChange(event, service.name)}
                 />
