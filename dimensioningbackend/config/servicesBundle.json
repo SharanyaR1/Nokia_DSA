@@ -19,8 +19,7 @@
             "Ausf_ueAuth",
             "Udm_sdm",
             "Udm_sidf",
-            "Udm_ueauth",
-            "shar"
+            "Udm_ueauth"
         ],
         "optionalService": [
             "Lawful Interception",

@@ -120,9 +120,9 @@
     },
     {
         "serviceLibrary": "HSS",
-        "serviceName": "shar",
+        "serviceName": "hssimsnew",
         "vCPU": 4,
-        "RAM": 8,
-        "TPS": 100
+        "RAM": 4,
+        "TPS": 4000
     }
 ]

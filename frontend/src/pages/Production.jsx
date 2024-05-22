@@ -8,6 +8,7 @@ import LogsPopup from './LogsPopUp';
 import LogsPopup2 from './LogsPopUp2';
 import LoginDialog from '../components/LoginDialog';
 import { Checkmark } from 'react-checkmark' // checkmark-icon
+import CheckStatusPopup from '../components/CheckStatusPopup';
 
 import './Production.css';
 
@@ -18,6 +19,9 @@ const Production = () => {
   const [nearApprover, setNearApprover] = useState('');
   const [customerRepoApprover, setCustomerRepoApprover] = useState('');
   const [productionApprover, setProductionApprover] = useState('');
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const [Action1status, setAction1Status] = useState('incomplete');
   const [Action2status, setAction2Status] = useState('incomplete');
   const [Action3status, setAction3Status] = useState('incomplete');
@@ -79,6 +83,11 @@ const Production = () => {
       setAction5Success(false);
     }
   }, [Action4status]);
+
+  const handlePopupClose = () => {
+    setIsOpen(false);
+  };
+
 
   //This is for the setstatus output to appear in the UI
   const [status, setStatus] = useState('');
@@ -147,6 +156,7 @@ const Production = () => {
 
 
   const checkstatus = async () => {
+    setIsOpen(true);
     const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
     const data = { project_name: project_name };
     console.log("Inside checkstatus")
@@ -509,7 +519,11 @@ const Production = () => {
         )}
 
         {/*to check status of deployments in the kubernetes cluster*/}
-        {status && <div><br /><p>{status}</p></div>}
+        {/* {status && <div><br /><p>{status}</p></div>} */}
+        {console.log("Here's the Status stuff")}
+        {console.log(isOpen)}
+        {console.log(status)}
+        {status && <CheckStatusPopup msg={status} isOpen={isOpen} onClose={handlePopupClose} />}
       </div>
 
       <div className="production-section">
