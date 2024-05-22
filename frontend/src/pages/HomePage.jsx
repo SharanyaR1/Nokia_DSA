@@ -54,13 +54,14 @@
 
 
 // HomePage.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWizard } from '../context/WizardContext';
 import "./HomePage.css";
 
 const HomePage = () => {
   const { handleMenuSelection } = useWizard(); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleManageProjectsClick = () => {
     handleMenuSelection('Manage');
@@ -75,6 +76,30 @@ const HomePage = () => {
     handleMenuSelection('Production');
     handleMenuSelection('CustomBundles');
   };
+
+  const handleLoginAsServiceOwner = () => {
+    setIsLoggedIn(false);
+    // Additional logic for Service Owner if needed
+  };
+
+  const handleLoginAsSolutionArchitect = () => {
+    setIsLoggedIn(true);
+    // Additional logic for Solution Architect if needed
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="login-page-container">
+        <div className="login-form">
+          <h2>Login As</h2>
+          <div className="buttons-container">
+            <button onClick={handleLoginAsSolutionArchitect}>Solution Architect</button>
+            <button onClick={handleLoginAsServiceOwner}>Service Owner</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="home-page-container">
@@ -94,3 +119,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
