@@ -24,9 +24,9 @@ const App = () => {
   const pages = [
     { title: 'Home', path: '/' },
     { title: 'Project', path: '/Project' },
-    { title: 'ServicesSelection', path: '/ServicesSelection' },
-    { title: 'DimensioningIP', path: '/dimensioningIP' },
-    { title: 'DimensioningOP', path: '/output' },
+    { title: 'Services Selection', path: '/ServicesSelection' },
+    { title: 'Dimensioning Input', path: '/dimensioningIP' },
+    { title: 'Dimensioning Output', path: '/output' },
     { title: 'Production', path: '/Production' },
     { title: 'Manage', path: '/contact' },
     { title: 'Observe', path: '/about' },

@@ -5,7 +5,7 @@ const CheckStatusPopup = ({ msg, isOpen, onClose }) => {
  console.log("Status here")
  console.log("In the pop up page")
   return (
-    <Popup open={isOpen} modal contentStyle={{ background: 'white' }}>
+    <Popup open={isOpen} modal contentStyle={{ background: 'white', width: '400px' }}>
       {(close) => (
         <div className="custom-popup">
           <button className="close-btn" onClick={onClose}>

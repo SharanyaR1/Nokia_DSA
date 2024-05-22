@@ -71,16 +71,21 @@ const LeftMenu = ({ pages }) => {
   if (!pages || pages.length === 0) {
     return null; 
   }
-
+  {console.log(pages)}
+  {console.log("Selected Pages")}
+  {console.log(selectedPages)}
   return (
+
     <div className={`left-menu ${isDarkMode ? 'dark-mode' : ''}`}>
       <ul>
         {pages.map((page, index) => (
           selectedPages.includes(page.title) && (
+
             <li key={index} className={location.pathname === page.path ? 'active' : ''}>
               <Link to={page.path}>{page.title}</Link>
             </li>
           )
+
         ))}
       </ul>
     </div>
