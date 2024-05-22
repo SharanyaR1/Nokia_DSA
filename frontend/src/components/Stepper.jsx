@@ -61,7 +61,7 @@ import { TiTick } from "react-icons/ti";
 import { useStepContext } from "../StepContext"; // Importing the context hook
 
 const Stepper = () => {
-  const steps = ["Project Details", "Bundles", "Dimensioning Input", "Dimensioning Output", "Testing", "Deployment"];
+  const steps = ["Project Details", "Bundle Selection", "Dimensioning Input", "Dimensioning Output", "Testing", "Deployment"];
   const { currentStep, complete, handleNext, handlePrevious } = useStepContext(); // Using the context hook
 
   return (

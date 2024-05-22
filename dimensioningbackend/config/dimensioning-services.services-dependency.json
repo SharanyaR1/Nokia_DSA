@@ -106,11 +106,9 @@
     {
         "serviceLibrary": "HSS",
         "dependency": {
-            "mainService": "shar",
+            "mainService": "hssimsnew",
             "mandatoryService": [
-                "DiameterLB",
-                "Hss_auth",
-                "Reg_trigger"
+                "HTTPLB"
             ],
             "optionalService": "Lawful Interception"
         }
