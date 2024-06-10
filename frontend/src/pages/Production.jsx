@@ -96,7 +96,7 @@ const Production = () => {
   const { Project, setProject } = React.useContext(ProjectContext);
   const { services, setServices } = React.useContext(ServicesContext);
 
-  const [showLogin, setShowLogin] = useState(true); // State to control login dialog visibility
+  const [showLogin, setShowLogin] = useState(false); // State to control login dialog visibility
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
   function formatPodStatus(inputStr) {
     // Split the input string into lines
@@ -372,10 +372,8 @@ const Production = () => {
 
   return (
     <div className="production-container">
-      {showLogin && !isLoggedIn && ( // Render login dialog if showLogin is true and user is not logged in
-        <LoginDialog onSubmit={handleLoginSubmit} />
-      )}
-      {isLoggedIn && <div className="production-section">
+      
+      {<div className="production-section">
         <button onClick={() => handleButtonClick('Create Package')}>Create Package</button>
         <label>Approver: </label>
         <input
@@ -444,7 +442,21 @@ const Production = () => {
       </div>}
 
       <div className="production-section">
-        <button onClick={() => handleButtonClick('Push to NEAR')} disabled={!action2Success}>Push to NEAR</button>
+      {showLogin && !isLoggedIn && ( // Render login dialog if showLogin is true and user is not logged in
+        <LoginDialog onSubmit={handleLoginSubmit} />
+      )}
+      <button
+        onClick={() => {
+          if (!isLoggedIn) {
+            setShowLogin(true); // Show login dialog if user is not logged in
+          } else {
+            handleButtonClick("Push to NEAR"); // Proceed with pushing to NEAR if user is logged in
+          }
+        }}
+        disabled={!action2Success}
+      >
+        Push to NEAR
+      </button>
         <label>Approver: </label>
         <input
           className="production-input"
