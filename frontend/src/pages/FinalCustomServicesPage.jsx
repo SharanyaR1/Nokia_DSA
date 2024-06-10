@@ -10,8 +10,8 @@ const FinalCustomServicesPage = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const services= location.state?.droppedServices || [];
-  const servicesname= services.map(service => service.name);
+  const services = location.state?.droppedServices || [];
+  const servicesname = services.map(service => service.name);
   const { droppedServices, setDroppedServices } = React.useContext(ServicesContext);
   const { handleNext, handlePrevious } = useStepContext();
 
@@ -37,7 +37,12 @@ const FinalCustomServicesPage = () => {
 
           const data = await response.json();
           console.log('Data from API:', data);
-          setOptionalServices(data);
+          // Map optional services to match the format of dropped services
+          const formattedOptionalServices = data.map((service, index) => ({
+            id: services.length + index + 1, // Assign a new ID based on the length of dropped services
+            name: service
+          }));
+          setOptionalServices(formattedOptionalServices);
 
         } catch (error) {
           console.error('Failed to fetch optional services:', error);
@@ -75,16 +80,15 @@ const FinalCustomServicesPage = () => {
   };
 
   const handleSubmit = () => {
-    console.log("HANDLE SUBMIT")
-    console.log(droppedServices)
-    console.log(optionalServices)
-    navigate('/dimensioningIP', { state: {droppedServices} });
+    console.log("HANDLE SUBMIT");
+    console.log(droppedServices);
+    console.log(optionalServices);
+    console.log("LOC")
+    console.log(location)
+    const combinedServices = [...droppedServices, ...optionalServices];
+    navigate('/dimensioningIP', { state: { combinedServices } });
     
   };
-// const handleSubmit = () => {
-//     const combinedServices = [...droppedServices, ...optionalServices];
-//     navigate('/dimensioningIP', { state: { combinedServices } });
-//   };
 
   return (
     <div className="final-services-container">
@@ -112,10 +116,10 @@ const FinalCustomServicesPage = () => {
               <input
                 type="checkbox"
                 name="optionalService"
-                value={service}
+                value={service.name}
                 onChange={(e) => handleOptionalServiceSelect(service, e.target.checked)}
               />
-              {service}
+              {service.name}
             </label>
           ))}
         </div>

@@ -9,13 +9,16 @@ const DimensioningIP = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { handleNext, handlePrevious } = useStepContext(); // Using the context hook
-  const droppedServices = location.state?.droppedServices || location.state?.servicesArray || [];
+  const droppedServices = location.state?.combinedServices || location.state?.servicesArray || [];
   const [projectId, setProjectId] = useState('');
   const [inputs, setInputs] = useState({});
   const [selectedVersions, setSelectedVersions] = useState({});
   
   /*INSTEAD GLOBAL PROJECT ID CAN BE TAKEN FROM THE GLOBAL PROJECT VARIABLE*/
   useEffect(() => {
+    console.log("SO IN THE DIM IN PAGE")
+    console.log(droppedServices)
+    console.log(location)
     // Fetch project ID when the component mounts
     fetch('http://localhost:4007/api/project')
       .then(response => response.json())
