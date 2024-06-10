@@ -19,6 +19,7 @@ import './App.css';
 import { StepProvider } from './StepContext';
 import { WizardProvider } from './context/WizardContext'; // Importing the WizardProvider
 import FinalServicesPage from './pages/FinalServicesPage';
+import FinalCustomServicesPage from './pages/FinalCustomServicesPage';
 
 const App = () => {
   const pages = [
@@ -55,6 +56,7 @@ const App = () => {
                   <Route path="/output" element={<DimensioningOutput />} />
                   <Route path="/Production" element={<Production />} />
                   <Route path="/FinalServices" element={<FinalServicesPage/>}/>
+                  <Route path="/finalcustomservices"element={<FinalCustomServicesPage/>}/>
                 </Routes>
               </div>
             </div>

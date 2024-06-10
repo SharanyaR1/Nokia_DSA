@@ -156,7 +156,7 @@ const Production = () => {
 
 
   const checkstatus = async () => {
-    setIsOpen(true);
+   
     const project_name = Project.projectDetails; // Assuming Project.projectDetails contains the project name
     const data = { project_name: project_name };
     console.log("Inside checkstatus")
@@ -177,6 +177,7 @@ const Production = () => {
     setStatus(jsonData.result);
     console.log("The status is ")
     // setOutput(formatPodStatus(status));
+    setIsOpen(true);
   };
 
   const handledownloadButtonClick = async () => {

@@ -4,8 +4,15 @@ import Popup from 'reactjs-popup';
 const CheckStatusPopup = ({ msg, isOpen, onClose }) => {
  console.log("Status here")
  console.log("In the pop up page")
+ //  console.log(msg)
+   console.log(isOpen)
+
+  console.log(msg)
+  
   return (
     <Popup open={isOpen} modal contentStyle={{ background: 'white', width: '400px' }}>
+      {<div>h</div>}
+      {console.log("h")}
       {(close) => (
         <div className="custom-popup">
           <button className="close-btn" onClick={onClose}>

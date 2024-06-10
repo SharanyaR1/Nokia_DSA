@@ -23,10 +23,12 @@ export const ServicesProvider = ({ children }) => {
   const [services, setServices] = useState([]);//all main services of the bundle
   const [optionalServices, setOptionalServices] = useState([]);//all optional services
   const [selectedServices, setSelectedServices] = useState([]);//Selected optional services
+  const [droppedServices, setDroppedServices] = useState([]);
+
 
   return (
     <ServicesContext.Provider
-      value={{ services, setServices, optionalServices, setOptionalServices ,selectedServices,setSelectedServices}}
+      value={{ services, setServices, optionalServices, setOptionalServices ,selectedServices,setSelectedServices,droppedServices,setDroppedServices}}
     >
       {children}
     </ServicesContext.Provider>
