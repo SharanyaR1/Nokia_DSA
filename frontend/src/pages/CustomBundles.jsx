@@ -52,7 +52,7 @@ const CustomBundles = () => {
   }));
 
   const handleDrop = (service) => {
-    setDroppedServices((prevServices) => [...prevServices, service]);
+    setDroppedServices((prevServices) => [...prevServices, service]);   
   };
 
   const handleRemove = (service) => {
