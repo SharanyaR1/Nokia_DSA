@@ -62,6 +62,8 @@ const FinalCustomServicesPage = () => {
 
   const handleServiceSelect = (service) => {
     setSelectedServices((prevServices) => [...prevServices, service]);
+    console.log("Selected Services CHECK")
+    console.log(selectedServices)
   };
 
   const handlePrev = () => {
@@ -70,22 +72,28 @@ const FinalCustomServicesPage = () => {
   };
 
   const handleOptionalServiceSelect = (service, isChecked) => {
+    console.log(service)
+    console.log(isChecked)
     setSelectedServices((prevServices) => {
       if (isChecked) {
         return [...prevServices, service];
+
       } else {
         return prevServices.filter((s) => s !== service);
       }
     });
+    console.log("CHECK")
+    console.log(selectedServices)
   };
 
   const handleSubmit = () => {
+    console.log(selectedServices)
     console.log("HANDLE SUBMIT");
     console.log(droppedServices);
     console.log(optionalServices);
     console.log("LOC")
     console.log(location)
-    const combinedServices = [...droppedServices, ...optionalServices];
+    const combinedServices = [...droppedServices, ...selectedServices];
     navigate('/dimensioningIP', { state: { combinedServices } });
     
   };
@@ -120,6 +128,7 @@ const FinalCustomServicesPage = () => {
                 onChange={(e) => handleOptionalServiceSelect(service, e.target.checked)}
               />
               {service.name}
+              
             </label>
           ))}
         </div>
