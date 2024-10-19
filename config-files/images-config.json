@@ -1,6 +1,6 @@
 {
-  "dockerhub_username": "abc",
-  "dockerhub_password": "abcd",
+  "dockerhub_username": "",
+  "dockerhub_password": "",
   "repository": "dsanokia",
   "url": "registry-1.docker.io/dsanokia",
   "images": {
